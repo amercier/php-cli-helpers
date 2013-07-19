@@ -21,7 +21,7 @@ update: composer.phar
 	php composer.phar update
 
 test: composer.lock
-	vendor/bin/phpunit tests/
+	vendor/bin/phpunit tests/unit
 
 clean:
 	rm -Rf vendor composer.phar composer.lock
