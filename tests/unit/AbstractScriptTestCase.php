@@ -1,6 +1,6 @@
 <?php
 
-require_once '../vendor/autoload.php';
+require_once '../../vendor/autoload.php';
 
 abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
 {
@@ -32,8 +32,9 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
         // Get return value
         $returnValue = proc_close($process);
 
-        $this->assertEquals($expectedStdout, $stdout);
-        $this->assertEquals($expectedStdin, $stdin);
+        //$this->assertEquals($stdout . "\n- - - - - - - - - - - - - - - - - - - - -\n" . $stderr, $expectedStdout . "\n- - - - - - - - - - - - - - - - - - - - -\n" . $expectedStderr);
+        $this->assertEquals($stderr, $expectedStderr);
+        $this->assertEquals($stdout, $expectedStdout);
         $this->assertEquals($expectedReturnValue, $returnValue);
     }
 }

@@ -88,7 +88,7 @@ class Parameter
     protected $long;
     protected $defaultValue;
 
-    public function __construct($short, $long, $defaultValue = VALUE_REQUIRED)
+    public function __construct($short, $long, $defaultValue = self::VALUE_REQUIRED)
     {
         $this->short = $short;
         $this->long = $long;
@@ -96,10 +96,10 @@ class Parameter
     }
 
     protected function getOptModifier() {
-        if ( $this->defaultValue === VALUE_REQUIRED ) {
+        if ( $this->defaultValue === self::VALUE_REQUIRED ) {
             return ':';
         }
-        else if ( $this->defaultValue === VALUE_NO_VALUE ) {
+        else if ( $this->defaultValue === self::VALUE_NO_VALUE ) {
             return '';
         }
         else {
@@ -126,23 +126,24 @@ class Parameter
 
         return array_map(
                 function ($parameter) {
+                    global $rawOptions;
 
-                    if ( $rawOptions[$parameter->$short] !== false && $rawOptions[$parameter->$long] !== false ) {
-                        throw new Exception\ConflictingCommandLineParameters( $parameter, $rawOptions[$parameter->$short], $rawOptions[$parameter->$long] );
+                    if ( $rawOptions[$parameter->short] !== false && $rawOptions[$parameter->long] !== false ) {
+                        throw new Exception\ConflictingCommandLineParameters( $parameter, $rawOptions[$parameter->short], $rawOptions[$parameter->long] );
                     }
 
-                    if ( $this->defaultValue === VALUE_REQUIRED ) {
-                        if ($rawOptions[$parameter->$short] !== false) {
+                    if ( $this->defaultValue === self::VALUE_REQUIRED ) {
+                        if ($rawOptions[$parameter->short] !== false) {
 
                         }
-                        else if ($rawOptions[$parameter->$short] !== false) {
+                        else if ($rawOptions[$parameter->short] !== false) {
 
                         }
                         else {
 
                         }
                     }
-                    else if ($this->defaultValue === VALUE_NO_VALUE) {
+                    else if ($this->defaultValue === self::VALUE_NO_VALUE) {
                     }
                     else {
                         return $this->defaultValue;
