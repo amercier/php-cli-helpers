@@ -18,4 +18,14 @@ php composer.phar install
 ```
 
 If you are not familiar with _Composer_, please read the
-[full installation intructions](docs).
+[full installation intructions](docs/install.md).
+
+
+Contributing
+------------
+
+Contributions (issues ♥, pull requests ♥♥♥) are more than welcome! Feel free to
+clone, fork, modify, extend, etc, as long as you respect the
+[license terms](../LICENSE).
+
+See [contributing intructions](docs/contributing.md) for details.
