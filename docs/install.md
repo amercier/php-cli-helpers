@@ -33,9 +33,9 @@ If the installation work correctly, this should display:
     Composer successfully installed to: /mnt/hgfs/Documents/sandbox/vcloud/composer.phar
     Use it: php composer.phar
 
-At this step, you should have the following files in your project's folder:
+At this stage, you should have the following files in your project's folder:
 
-    **$ ls -l**
+    $ ls -l
     - composer.phar (~900 kB)
 
 
@@ -49,12 +49,12 @@ Go to your folder root and execute:
 This will help you to create the composer.json interactively. Once you reach the
 question _"Would you like to define your dependencies (require) interactively
 [yes]?"_, **answer yes**. Then, enter the package **amercier/cli-helpers**.
-Then, select _amercier/cli-helpers_ (usually "0"), and give _1.*_ as version
+Then, select _amercier/cli-helpers_ (usually **0**), and answer **1.*** as version
 number.
 
-At this step, you should have the following files in your project's folder:
+At this stage, you should have the following files in your project's folder:
 
-    **$ ls -l**
+    $ ls -l
     - composer.phar (~900 kB)
     - composer.json (7 B)
 
@@ -91,9 +91,9 @@ If the installation work correctly, this should display something like:
     Writing lock file
     Generating autoload files
 
-At this step, you should have the following files in your project's folder:
+At this stage, you should have the following files in your project's folder:
 
-    **$ ls -l**
+    $ ls -l
     - composer.phar (~900 kB)
     - composer.json (7 B)
     - vendor
