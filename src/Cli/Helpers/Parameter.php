@@ -33,7 +33,7 @@ namespace Cli\Helpers;
  * ```php
  * use Cli\Helpers\Parameter as Parameter;
  * $options = Parameter::getFromCommandLine(array(
- *         'host'     => new Parameter('h', 'host'    , Parameter::VALUE_REQUIRED),
+ *         'host'     => new Parameter('h', 'host'    , '127.0.0.1'),
  *         'username' => new Parameter('u', 'username', Parameter::VALUE_REQUIRED),
  *         'password' => new Parameter('p', 'password', Parameter::VALUE_REQUIRED),
  *         'verbose'  => new Parameter('v', 'verbose' , Parameter::VALUE_NO_VALUE),
