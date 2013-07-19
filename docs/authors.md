@@ -1,4 +1,4 @@
 Authors
 =======
 
-  - Alexandre Mercier - pro.alexandre.mercier@gmail.com - Main developer
+  - @amercier (pro.alexandre.mercier@gmail.com) - Main developer
