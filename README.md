@@ -9,7 +9,6 @@ Installation
 
 _php-cli-helpers_ is available through [Composer](http://getcomposer.org/).
 ```json
-  ...
   "require": {
     "amercier/php-cli-helpers": "1.*"
   }
@@ -20,5 +19,3 @@ php composer.phar install
 
 If you are not familiar with _Composer_, please read the
 [full installation intructions](docs).
-
-
