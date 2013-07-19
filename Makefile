@@ -20,5 +20,8 @@ composer.phar:
 update: composer.phar
 	php composer.phar update
 
+test: composer.lock
+	vendor/bin/phpunit tests/
+
 clean:
 	rm -Rf vendor composer.phar composer.lock
