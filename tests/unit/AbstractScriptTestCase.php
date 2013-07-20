@@ -4,20 +4,8 @@ require_once '../../vendor/autoload.php';
 
 abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
 {
-    protected function assertScriptOutput($command, $expectedStdout, $expectedStderr = '', $expectedReturnValue = 0, $stdinData = '', $cwd = null, $env = null)
+    protected function runCommand($command, $stdinData = '', $cwd = null, $env = null)
     {
-        if ( !is_string($expectedStdout) ) {
-            ob_start();
-            var_dump($expectedStdout);
-            $expectedStdout = ob_get_clean();
-        }
-
-        if ( !is_string($expectedStderr) ) {
-            ob_start();
-            var_dump($expectedStderr);
-            $expectedStderr = ob_get_clean();
-        }
-
         $descriptorspec = array(
                0 => array("pipe", "r"),  // stdin
                1 => array("pipe", "w"),  // stdout
@@ -44,9 +32,83 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
         // Get return value
         $returnValue = proc_close($process);
 
-        //$this->assertEquals($stdout . "\n- - - - - - - - - - - - - - - - - - - - -\n" . $stderr, $expectedStdout . "\n- - - - - - - - - - - - - - - - - - - - -\n" . $expectedStderr);
-        $this->assertEquals($expectedStderr, $stderr);
-        $this->assertEquals($expectedStdout, $stdout);
+        return array(
+                $stdout . '\n' == $stderr ? '' : $stdout,
+                $stderr,
+                $returnValue
+            );
+    }
+
+    protected function normalizeExpectedOutput($output)
+    {
+        if ( !is_string($output) ) {
+            ob_start();
+            var_dump($output);
+            $output = ob_get_clean();
+        }
+        return $output;
+    }
+
+    protected function assertScriptOutput($command, $expectedStdout, $expectedStderr = '', $expectedReturnValue = 0, $stdinData = '', $cwd = null, $env = null)
+    {
+        $output = $this->runCommand($command, $stdinData, $cwd, $env);
+        $stdout = $output[0];
+        $stderr = $output[1];
+        $returnValue = $output[2];
+
+        $this->assertEquals($this->normalizeExpectedOutput($expectedStderr), $stderr);
+        $this->assertEquals($this->normalizeExpectedOutput($expectedStdout), $stdout);
         $this->assertEquals($returnValue, $expectedReturnValue);
+    }
+
+    protected function assertScriptOutputRegex($command, $expectedStdoutPattern, $expectedStderrPattern = '//', $expectedReturnValuePattern = '/0/', $stdinData = '', $cwd = null, $env = null)
+    {
+        $output = $this->runCommand($command, $stdinData, $cwd, $env);
+        $stdout = $output[0];
+        $stderr = $output[1];
+        $returnValue = $output[2];
+
+        $this->assertRegExp($expectedStderrPattern, $stderr);
+        $this->assertRegExp($expectedStdoutPattern, $stdout);
+        $this->assertRegExp($expectedReturnValuePattern, '' . $returnValue);
+    }
+
+    protected function assertScriptOutputStartsWith($command, $expectedStdout, $expectedStderr = '', $expectedReturnValue = 0, $stdinData = '', $cwd = null, $env = null)
+    {
+        return $this->assertScriptOutputRegex(
+                $command,
+                '/' . preg_quote($expectedStdout, '/') . '.*/',
+                '/' . preg_quote($expectedStderr, '/') . '.*/',
+                '/' . preg_quote($expectedReturnValue, '/') . '.*/',
+                $stdinData,
+                $cwd,
+                $env
+            );
+    }
+
+    protected function assertScriptOutputEndsWith($command, $expectedStdout, $expectedStderr = '', $expectedReturnValue = 0, $stdinData = '', $cwd = null, $env = null)
+    {
+        return $this->assertScriptOutputRegex(
+                $command,
+                '/.*' . preg_quote($expectedStdout, '/') . '/',
+                '/.*' . preg_quote($expectedStderr, '/') . '/',
+                '/.*' . preg_quote($expectedReturnValue, '/') . '/',
+                $stdinData,
+                $cwd,
+                $env
+            );
+    }
+
+    protected function assertScriptOutputContains($command, $expectedStdout, $expectedStderr = '', $expectedReturnValue = 0, $stdinData = '', $cwd = null, $env = null)
+    {
+        return $this->assertScriptOutputRegex(
+                $command,
+                '/.*' . preg_quote($expectedStdout, '/') . '.*/',
+                '/.*' . preg_quote($expectedStderr, '/') . '.*/',
+                '/.*' . preg_quote($expectedReturnValue, '/') . '.*/',
+                $stdinData,
+                $cwd,
+                $env
+            );
     }
 }
