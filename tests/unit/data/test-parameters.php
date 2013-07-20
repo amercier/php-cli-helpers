@@ -9,7 +9,7 @@
  *     -v, --verbose                      Verbose switch (optional)
  */
 
-require_once '../../vendor/autoload.php';
+require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
 
 use Cli\Helpers\Parameter as Parameter;
 
