@@ -6,6 +6,18 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
 {
     protected function assertScriptOutput($command, $expectedStdout, $expectedStderr = '', $expectedReturnValue = 0, $stdinData = '', $cwd = null, $env = null)
     {
+        if ( !is_string($expectedStdout) ) {
+            ob_start();
+            var_dump($expectedStdout);
+            $expectedStdout = ob_get_clean();
+        }
+
+        if ( !is_string($expectedStderr) ) {
+            ob_start();
+            var_dump($expectedStderr);
+            $expectedStderr = ob_get_clean();
+        }
+
         $descriptorspec = array(
                0 => array("pipe", "r"),  // stdin
                1 => array("pipe", "w"),  // stdout
@@ -33,8 +45,8 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
         $returnValue = proc_close($process);
 
         //$this->assertEquals($stdout . "\n- - - - - - - - - - - - - - - - - - - - -\n" . $stderr, $expectedStdout . "\n- - - - - - - - - - - - - - - - - - - - -\n" . $expectedStderr);
-        $this->assertEquals($stderr, $expectedStderr);
-        $this->assertEquals($stdout, $expectedStdout);
-        $this->assertEquals($expectedReturnValue, $returnValue);
+        $this->assertEquals($expectedStderr, $stderr);
+        $this->assertEquals($expectedStdout, $stdout);
+        $this->assertEquals($returnValue, $expectedReturnValue);
     }
 }
