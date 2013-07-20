@@ -107,12 +107,61 @@ class Parameter
         }
     }
 
-    protected function getShortOpt() {
+    public function getShort()
+    {
+        return $this->short;
+    }
+
+    public function getLong()
+    {
+        return $this->long;
+    }
+
+    public function getShortOpt()
+    {
         return $this->short . $this->getOptModifier();
     }
 
-    protected function getLongOpt() {
+    public function getLongOpt()
+    {
         return $this->long . $this->getOptModifier();
+    }
+
+    public function getValue( $rawOptions )
+    {
+        // Prevent short and long options simultaneously
+        if ( array_key_exists($this->getShort(), $rawOptions) && array_key_exists($this->getLong(), $rawOptions) ) {
+            throw new Exception\ConflictingCommandLineParameters(
+                    $this,
+                    $rawOptions[$this->getShort()],
+                    $rawOptions[$this->getLong()]
+                );
+        }
+
+        // If it's a switch parameter (ex: -v/--verbose) return true if it was given, false otherwise
+        if ($this->defaultValue === self::VALUE_NO_VALUE) {
+            return array_key_exists($this->getShort(), $rawOptions) || array_key_exists($this->getLong(), $rawOptions);
+        }
+
+
+        // If it's a value parameter (ex: -h/--host 127.0.0.1)...
+
+        // Return the value if it exists
+        if (  array_key_exists($this->getShort(), $rawOptions) ) {
+            return $rawOptions[ $this->getShort() ];
+        }
+
+        if ( array_key_exists($this->getLong(), $rawOptions) ) {
+            return $rawOptions[ $this->getLong() ];
+        }
+
+        // No value
+        if ($this->defaultValue === self::VALUE_REQUIRED) { // required
+            throw new Exception\MissingCommandLineParameter( $parameter );
+        }
+        else { // default value exists
+            return $this->defaultValue;
+        }
     }
 
     public static function getFromCommandLine( array $parameters )
@@ -124,32 +173,16 @@ class Parameter
                 array_map(function($p) { return $p->getLongOpt(); }, $parameters)
             );
 
-        return array_map(
-                function ($parameter) {
-                    global $rawOptions;
+        // print_r( $parameters );
+        // echo "---------------------\n";
+        // print_r( $rawOptions );
+        // echo "---------------------\n";
 
-                    if ( $rawOptions[$parameter->short] !== false && $rawOptions[$parameter->long] !== false ) {
-                        throw new Exception\ConflictingCommandLineParameters( $parameter, $rawOptions[$parameter->short], $rawOptions[$parameter->long] );
-                    }
+        $options = array();
+        foreach( $parameters as $key => $parameter ) {
+            $options[ $key ] = $parameter->getValue( $rawOptions );
+        }
 
-                    if ( $this->defaultValue === self::VALUE_REQUIRED ) {
-                        if ($rawOptions[$parameter->short] !== false) {
-
-                        }
-                        else if ($rawOptions[$parameter->short] !== false) {
-
-                        }
-                        else {
-
-                        }
-                    }
-                    else if ($this->defaultValue === self::VALUE_NO_VALUE) {
-                    }
-                    else {
-                        return $this->defaultValue;
-                    }
-                },
-                $parameters
-            );
+        return $options;
     }
 }
