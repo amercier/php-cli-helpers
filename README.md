@@ -3,6 +3,8 @@ php-cli-helpers
 
 Utility classes to write PHP command-line scripts
 
+[![Build Status](https://travis-ci.org/amercier/php-cli-helpers.png?branch=master)](https://travis-ci.org/amercier/php-cli-helpers)
+
 
 Installation
 ------------
