@@ -1,6 +1,6 @@
 <?php
 
-namespace Cli\Helpers\Exception;
+namespace Cli\Helpers;
 
 /**
  * Abstract exception class for this project.
@@ -15,6 +15,6 @@ namespace Cli\Helpers\Exception;
  *
  * instead of having to catch all exceptions individually.
  */
-abstract class AbstractException extends Exception
+abstract class Exception extends \Exception
 {
 }
