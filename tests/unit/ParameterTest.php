@@ -86,4 +86,10 @@ class ParameterTestCase extends AbstractCliScriptTestCase
         $this->assertScriptOutputStartsWith(self::SCRIPT . ''          , '', "PHP Fatal error:  Uncaught exception 'Cli\\Helpers\\Exception\\MissingRequiredParameter' with message 'Missing parameter -u/--username in command \"php data/test-parameters.php\"'", 255);
         $this->assertScriptOutputStartsWith(self::SCRIPT . ' -u myname', '', "PHP Fatal error:  Uncaught exception 'Cli\\Helpers\\Exception\\MissingRequiredParameter' with message 'Missing parameter -p/--password in command \"php data/test-parameters.php -u myname\"'", 255);
     }
+
+    public function testMissingParameterValue()
+    {
+        $this->assertScriptOutputStartsWith(self::SCRIPT . ' -u'        , '', "PHP Fatal error:  Uncaught exception 'Cli\\Helpers\\Exception\\MissingParameterValue' with message 'Missing value for parameter -u/--username in command \"php data/test-parameters.php -u\"'", 255);
+        $this->assertScriptOutputStartsWith(self::SCRIPT . ' --username', '', "PHP Fatal error:  Uncaught exception 'Cli\\Helpers\\Exception\\MissingParameterValue' with message 'Missing value for parameter -u/--username in command \"php data/test-parameters.php --username\"'", 255);
+    }
 }
