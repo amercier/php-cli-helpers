@@ -66,16 +66,16 @@ namespace Cli\Helpers;
  * ```
  *
  * Executing this with `my-script.php -u myname` will result in a
- * `Cli\Helpers\Exception\MissingCommandLineParameter` exception because the
+ * `Cli\Helpers\Exception\MissingRequiredParameter` exception because the
  * options '-p/--password' is required.
  *
  * Executing this with `my-script.php -u myname -p` will result in a
- * `Cli\Helpers\Exception\MissingCommandLineParameterValue` exception because
+ * `Cli\Helpers\Exception\MissingParameterValue` exception because
  * the options '-p/--password' requires a value.
  *
  * Executing this with `my-script.php -u myname -p password --passsword
  * password` will result in a
- * `Cli\Helpers\Exception\ConflictingCommandLineParameters` exception because
+ * `Cli\Helpers\Exception\ConflictingParameters` exception because
  * the options '-p/--password' cannot be used with the short and long switches
  * cannot be used simultaneously.
  */
@@ -131,7 +131,7 @@ class Parameter
     {
         // Prevent short and long options simultaneously
         if ( array_key_exists($this->getShort(), $rawOptions) && array_key_exists($this->getLong(), $rawOptions) ) {
-            throw new Exception\ConflictingCommandLineParameters(
+            throw new Exception\ConflictingParameters(
                     $this,
                     $rawOptions[$this->getShort()],
                     $rawOptions[$this->getLong()]
@@ -157,7 +157,10 @@ class Parameter
 
         // No value
         if ($this->defaultValue === self::VALUE_REQUIRED) { // required
-            throw new Exception\MissingCommandLineParameter( $parameter );
+            global $argv;
+            throw in_array('-' . $this->getShort(), $argv) || in_array('--' . $this->getLong(), $argv)
+                ? new Exception\MissingParameterValue( $this )
+                : new Exception\MissingRequiredParameter( $this );
         }
         else { // default value exists
             return $this->defaultValue;
@@ -173,8 +176,6 @@ class Parameter
                 array_map(function($p) { return $p->getLongOpt(); }, $parameters)
             );
 
-        // print_r( $parameters );
-        // echo "---------------------\n";
         // print_r( $rawOptions );
         // echo "---------------------\n";
 
