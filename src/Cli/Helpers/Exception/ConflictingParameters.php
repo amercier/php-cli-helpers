@@ -8,9 +8,9 @@ use Cli\Helpers\Exception as CliHelpersException;
  * Exception that occurs with Parameter::getFromCommandLine() where both a short
  * parameter and its long equivalent are given simulteanously. Ex:
  *
- *     my-script -u amercier --username amercier
+ *     my-script.php -u amercier --username amercier
  */
-class ConflictingCommandLineParameters extends CliHelpersException
+class ConflictingParameters extends CliHelpersException
 {
 	public function __construct($parameter)
 	{

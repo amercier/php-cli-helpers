@@ -68,6 +68,7 @@ class ParameterTestCase extends AbstractCliScriptTestCase
 
     public function testConflictingRequiredParameter()
     {
-        $this->assertScriptOutputStartsWith(self::SCRIPT . ' -u myname -p mypassword --username myname', '', "PHP Fatal error:  Uncaught exception 'Cli\\Helpers\\Exception\\ConflictingCommandLineParameters' with message 'Conflicting parameters -u and --username in command \"php data/test-parameters.php -u myname -p mypassword --username myname\"", 255);
+        $this->assertScriptOutputStartsWith(self::SCRIPT . ' -u myname -p mypassword --username myname', '', "PHP Fatal error:  Uncaught exception 'Cli\\Helpers\\Exception\\ConflictingParameters' with message 'Conflicting parameters -u and --username in command \"php data/test-parameters.php -u myname -p mypassword --username myname\"", 255);
     }
+
 }
