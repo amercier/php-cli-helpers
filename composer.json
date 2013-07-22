@@ -24,12 +24,6 @@
 	"include-path": [
 		"src/"
 	],
-	"repositories": [
-		{
-			"type": "pear",
-			"url": "http://pear.php.net"
-		}
-	],
 	"require": {
 	},
 	"require-dev": {
