@@ -28,6 +28,6 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.*",
-        "satooshi/php-coveralls": "dev-master"
+    "satooshi/php-coveralls": "dev-master"
 	}
 }
