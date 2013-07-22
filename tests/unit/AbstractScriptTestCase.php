@@ -1,7 +1,5 @@
 <?php
 
-require_once '../../vendor/autoload.php';
-
 abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
 {
     protected function runCommand($command, $stdinData = '', $cwd = null, $env = null)

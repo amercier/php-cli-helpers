@@ -23,7 +23,7 @@ update: composer.phar
 	php composer.phar update
 
 test: composer.lock
-	vendor/bin/phpunit --colors --coverage-html ../../build/logs/coverage --coverage-text=../../build/logs/coverage.txt tests/unit && \
+	vendor/bin/phpunit --coverage-html build/logs/coverage --coverage-text=build/logs/coverage.txt && \
 	echo && \
 	echo ======== Code coverage ======== && \
 	cat build/logs/coverage.txt | grep -A3 Summary | tail -n 3 && \
