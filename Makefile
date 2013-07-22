@@ -5,6 +5,8 @@
 #
 # This will, hopefully, download all the developer dependencies and get you
 # started immediately. If this is not the case, please report an issue.
+#
+# @todo Check if XDebug is installed
 
 .PHONY: update clean
 
@@ -21,7 +23,11 @@ update: composer.phar
 	php composer.phar update
 
 test: composer.lock
-	vendor/bin/phpunit --colors tests/unit
+	vendor/bin/phpunit --colors --coverage-html ../../build/logs/coverage --coverage-text=../../build/logs/coverage.txt tests/unit && \
+	echo && \
+	echo ======== Code coverage ======== && \
+	cat build/logs/coverage.txt | grep -A3 Summary | tail -n 3 && \
+	echo ===============================
 
 clean:
 	rm -Rf vendor composer.phar composer.lock
