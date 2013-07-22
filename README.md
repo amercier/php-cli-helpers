@@ -6,6 +6,9 @@ Utility classes to write PHP command-line scripts
 [![Build Status](https://travis-ci.org/amercier/php-cli-helpers.png?branch=master)](https://travis-ci.org/amercier/php-cli-helpers)
 [![Coverage Status](https://coveralls.io/repos/amercier/php-cli-helpers/badge.png?branch=master)](https://coveralls.io/r/amercier/php-cli-helpers?branch=master)
 
+[![Latest Stable Version](https://poser.pugx.org/amercier/cli-helpers/v/stable.png)](https://packagist.org/packages/amercier/cli-helpers)
+
+
 Installation
 ------------
 
