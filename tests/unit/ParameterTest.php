@@ -2,7 +2,7 @@
 
 use Cli\Helpers\Parameter;
 
-class ParameterTestCase extends PHPUnit_Framework_TestCase
+class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
 {
     const SCRIPT = 'data/test-parameters.php';
 
@@ -169,25 +169,25 @@ class ParameterTestCase extends PHPUnit_Framework_TestCase
             );
     }
 
-    // /**
-    //  * @expectedException Cli\Helpers\Exception\MissingParameterValue
-    //  */
-    // public function testMissingParameterValue()
-    // {
-    //     Parameter::getFromCommandLine(
-    //             self::$parameters,
-    //             explode(' ', self::SCRIPT . ' -u')
-    //         );
-    // }
+    /**
+     * @expectedException Cli\Helpers\Exception\MissingParameterValue
+     */
+    public function testMissingParameterValue()
+    {
+        Parameter::getFromCommandLine(
+                self::$parameters,
+                explode(' ', self::SCRIPT . ' -u')
+            );
+    }
 
-    // /**
-    //  * @expectedException Cli\Helpers\Exception\MissingParameterValue
-    //  */
-    // public function testMissingParameterValue2()
-    // {
-    //     Parameter::getFromCommandLine(
-    //             self::$parameters,
-    //             explode(' ', self::SCRIPT . ' --username')
-    //         );
-    // }
+    /**
+     * @expectedException Cli\Helpers\Exception\MissingParameterValue
+     */
+    public function testMissingParameterValue2()
+    {
+        Parameter::getFromCommandLine(
+                self::$parameters,
+                explode(' ', self::SCRIPT . ' --username')
+            );
+    }
 }
