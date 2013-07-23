@@ -2,7 +2,7 @@
 
 require_once dirname(__FILE__) . '/AbstractScriptTestCase.php';
 
-class ParameterTestCase extends AbstractCliScriptTestCase
+class ParameterIntegrationTestCase extends AbstractCliScriptTestCase
 {
     const SCRIPT = 'php data/test-parameters.php';
 
