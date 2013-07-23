@@ -134,8 +134,8 @@ class Parameter
             throw in_array('-' . $this->getShort(), $arguments) || in_array('--' . $this->getLong(), $arguments)
                 ? new Exception\MissingParameterValue( $this, $arguments )
                 : new Exception\MissingRequiredParameter( $this, $arguments );
-        }
-        else { // default value exists
+        } else { // default value exists
+
             return $this->defaultValue;
         }
     }
@@ -148,26 +148,27 @@ class Parameter
         $rawOptions = self::getOptions( $arguments === null ? $argv : $arguments );
 
         $options = array();
-        foreach( $parameters as $key => $parameter ) {
+        foreach ($parameters as $key => $parameter) {
             $options[ $key ] = $parameter->getValue( $rawOptions, $arguments === null ? $argv : $arguments );
         }
 
         return $options;
     }
 
-    protected static function getOptions ($arguments) {
+    protected static function getOptions ($arguments)
+    {
         $options = array();
-        for( $i = 1 ; $i < count($arguments) ; $i++ ) {
+        for ( $i = 1 ; $i < count($arguments) ; $i++ ) {
             if (preg_match('/^--?(.*)/', $arguments[$i], $matches)) {
-                if( $i < count($arguments) - 1 ) {
+                if ( $i < count($arguments) - 1 ) {
                     $options[ $matches[1] ] = $arguments[$i+1];
                     continue; continue;
-                }
-                else {
+                } else {
                     $options[ $matches[1] ] = true;
                 }
             }
         }
+
         return $options;
     }
 }
