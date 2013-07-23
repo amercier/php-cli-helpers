@@ -7,10 +7,12 @@ php:
   - 5.5
 
 before_script:
-  - composer install --dev --prefer-source --no-interaction
+  - curl -sS https://getcomposer.org/installer | php
+  - php composer.phar install --dev --prefer-source --no-interaction
 
 script:
   - mkdir -p build/logs
+  - vendor/bin/php-cs-fixer fix src/ --dry-run --verbose --diff
   - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
