@@ -195,9 +195,9 @@ class Parameter
             }
         }
 
-        echo 'getopt("' . implode('', array_map(function($p) { return $p->getShortOpt(); }, $parameters)) . '") = ';
-        print_r( $rawOptions );
-        echo "---------------------\n";
+        // echo 'getopt("' . implode('', array_map(function($p) { return $p->getShortOpt(); }, $parameters)) . '") = ';
+        // print_r( $rawOptions );
+        // echo "---------------------\n";
 
         $options = array();
         foreach( $parameters as $key => $parameter ) {
