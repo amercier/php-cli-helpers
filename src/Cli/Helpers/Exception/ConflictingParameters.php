@@ -15,7 +15,10 @@ class ConflictingParameters extends CliHelpersException
     public function __construct($parameter, $arguments)
     {
         global $argv;
-        parent::__construct('Conflicting parameters -' . $parameter->getShort() . ' and --' . $parameter->getLong() . ' in command "php ' . implode(' ', $arguments) . '"');
+        parent::__construct(
+            'Conflicting parameters -' . $parameter->getShort()
+            . ' and --' . $parameter->getLong()
+            . ' in command "php ' . implode(' ', $arguments) . '"'
+        );
     }
-
 }

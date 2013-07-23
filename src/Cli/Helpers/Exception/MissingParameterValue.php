@@ -15,7 +15,9 @@ class MissingParameterValue extends CliHelpersException
     public function __construct($parameter, $arguments)
     {
         global $argv;
-        parent::__construct('Missing value for parameter -' . $parameter->getShort() . '/--' . $parameter->getLong() . ' in command "php ' . implode(' ', $arguments) . '"');
+        parent::__construct(
+            'Missing value for parameter -' . $parameter->getShort() . '/--' . $parameter->getLong()
+            . ' in command "php ' . implode(' ', $arguments) . '"'
+        );
     }
-
 }

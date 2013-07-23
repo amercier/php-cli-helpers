@@ -15,7 +15,9 @@ class MissingRequiredParameter extends CliHelpersException
     public function __construct($parameter, $arguments)
     {
         global $argv;
-        parent::__construct('Missing parameter -' . $parameter->getShort() . '/--' . $parameter->getLong() . ' in command "php ' . implode(' ', $arguments) . '"');
+        parent::__construct(
+            'Missing parameter -' . $parameter->getShort() . '/--' . $parameter->getLong()
+            . ' in command "php ' . implode(' ', $arguments) . '"'
+        );
     }
-
 }

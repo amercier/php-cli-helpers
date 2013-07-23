@@ -31,13 +31,8 @@ test: composer.lock
 	echo ===============================
 
 lint: composer.lock
-	echo && \
-	echo ======== Code coverage ======== && \
-	vendor/bin/php-cs-fixer fix src/ --dry-run --verbose --diff && \
-	echo =============================== || (\
-	echo ==================================================== && \
-	echo Run \'vendor/bin/php-cs-fixer fix src\' to apply fixes && \
-	echo ====================================================)
+	vendor/bin/phpcs --standard=PSR1 src/
+	vendor/bin/phpcs --standard=PSR2 src/
 
 clean:
 	rm -Rf vendor composer.phar composer.lock

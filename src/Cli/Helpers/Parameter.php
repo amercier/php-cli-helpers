@@ -105,10 +105,10 @@ class Parameter
         return $this->long;
     }
 
-    public function getValue( $rawOptions, $arguments )
+    public function getValue ($rawOptions, $arguments)
     {
         // Prevent short and long options simultaneously
-        if ( array_key_exists($this->getShort(), $rawOptions) && array_key_exists($this->getLong(), $rawOptions) ) {
+        if (array_key_exists($this->getShort(), $rawOptions) && array_key_exists($this->getLong(), $rawOptions)) {
             throw new Exception\ConflictingParameters($this, $arguments);
         }
 
@@ -121,35 +121,35 @@ class Parameter
         // If it's a value parameter (ex: -h/--host 127.0.0.1)...
 
         // Return the value if it exists
-        if (  array_key_exists($this->getShort(), $rawOptions) ) {
+        if (array_key_exists($this->getShort(), $rawOptions)) {
             return $rawOptions[ $this->getShort() ];
         }
 
-        if ( array_key_exists($this->getLong(), $rawOptions) ) {
+        if (array_key_exists($this->getLong(), $rawOptions)) {
             return $rawOptions[ $this->getLong() ];
         }
 
         // No value
         if ($this->defaultValue === self::VALUE_REQUIRED) { // required
             throw in_array('-' . $this->getShort(), $arguments) || in_array('--' . $this->getLong(), $arguments)
-                ? new Exception\MissingParameterValue( $this, $arguments )
-                : new Exception\MissingRequiredParameter( $this, $arguments );
+                ? new Exception\MissingParameterValue($this, $arguments)
+                : new Exception\MissingRequiredParameter($this, $arguments);
         } else { // default value exists
 
             return $this->defaultValue;
         }
     }
 
-    public static function getFromCommandLine( array $parameters, $arguments = null )
+    public static function getFromCommandLine (array $parameters, $arguments = null)
     {
         global $argv;
         $options = array();
 
-        $rawOptions = self::getOptions( $arguments === null ? $argv : $arguments );
+        $rawOptions = self::getOptions($arguments === null ? $argv : $arguments);
 
         $options = array();
         foreach ($parameters as $key => $parameter) {
-            $options[ $key ] = $parameter->getValue( $rawOptions, $arguments === null ? $argv : $arguments );
+            $options[ $key ] = $parameter->getValue($rawOptions, $arguments === null ? $argv : $arguments);
         }
 
         return $options;
@@ -158,11 +158,12 @@ class Parameter
     protected static function getOptions ($arguments)
     {
         $options = array();
-        for ( $i = 1 ; $i < count($arguments) ; $i++ ) {
+        for ($i = 1; $i < count($arguments); $i++) {
             if (preg_match('/^--?(.*)/', $arguments[$i], $matches)) {
-                if ( $i < count($arguments) - 1 ) {
+                if ($i < count($arguments) - 1) {
                     $options[ $matches[1] ] = $arguments[$i+1];
-                    continue; continue;
+                    continue;
+                    continue;
                 } else {
                     $options[ $matches[1] ] = true;
                 }
