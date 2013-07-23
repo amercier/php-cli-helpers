@@ -12,10 +12,10 @@ use Cli\Helpers\Exception as CliHelpersException;
  */
 class MissingParameterValue extends CliHelpersException
 {
-    public function __construct($parameter)
+    public function __construct($parameter, $arguments)
     {
         global $argv;
-        parent::__construct('Missing value for parameter -' . $parameter->getShort() . '/--' . $parameter->getLong() . ' in command "php ' . implode(' ',$argv) . '"');
+        parent::__construct('Missing value for parameter -' . $parameter->getShort() . '/--' . $parameter->getLong() . ' in command "php ' . implode(' ', $arguments) . '"');
     }
 
 }

@@ -95,18 +95,6 @@ class Parameter
         $this->defaultValue = $defaultValue;
     }
 
-    protected function getOptModifier() {
-        if ( $this->defaultValue === self::VALUE_REQUIRED ) {
-            return ':';
-        }
-        else if ( $this->defaultValue === self::VALUE_NO_VALUE ) {
-            return '';
-        }
-        else {
-            return ':';
-        }
-    }
-
     public function getShort()
     {
         return $this->short;
@@ -117,25 +105,11 @@ class Parameter
         return $this->long;
     }
 
-    public function getShortOpt()
-    {
-        return $this->short . $this->getOptModifier();
-    }
-
-    public function getLongOpt()
-    {
-        return $this->long . $this->getOptModifier();
-    }
-
-    public function getValue( $rawOptions )
+    public function getValue( $rawOptions, $arguments )
     {
         // Prevent short and long options simultaneously
         if ( array_key_exists($this->getShort(), $rawOptions) && array_key_exists($this->getLong(), $rawOptions) ) {
-            throw new Exception\ConflictingParameters(
-                    $this,
-                    $rawOptions[$this->getShort()],
-                    $rawOptions[$this->getLong()]
-                );
+            throw new Exception\ConflictingParameters($this, $arguments);
         }
 
         // If it's a switch parameter (ex: -v/--verbose) return true if it was given, false otherwise
@@ -157,10 +131,9 @@ class Parameter
 
         // No value
         if ($this->defaultValue === self::VALUE_REQUIRED) { // required
-            global $argv;
-            throw in_array('-' . $this->getShort(), $argv) || in_array('--' . $this->getLong(), $argv)
-                ? new Exception\MissingParameterValue( $this )
-                : new Exception\MissingRequiredParameter( $this );
+            throw in_array('-' . $this->getShort(), $arguments) || in_array('--' . $this->getLong(), $arguments)
+                ? new Exception\MissingParameterValue( $this, $arguments )
+                : new Exception\MissingRequiredParameter( $this, $arguments );
         }
         else { // default value exists
             return $this->defaultValue;
@@ -176,7 +149,7 @@ class Parameter
 
         $options = array();
         foreach( $parameters as $key => $parameter ) {
-            $options[ $key ] = $parameter->getValue( $rawOptions );
+            $options[ $key ] = $parameter->getValue( $rawOptions, $arguments === null ? $argv : $arguments );
         }
 
         return $options;
@@ -186,7 +159,13 @@ class Parameter
         $options = array();
         for( $i = 1 ; $i < count($arguments) ; $i++ ) {
             if (preg_match('/^--?(.*)/', $arguments[$i], $matches)) {
-                $options[ $matches[1] ] = $i === count($arguments) - 1 ? false : $arguments[$i+1];
+                if( $i < count($arguments) - 1 ) {
+                    $options[ $matches[1] ] = $arguments[$i+1];
+                    continue; continue;
+                }
+                else {
+                    $options[ $matches[1] ] = true;
+                }
             }
         }
         return $options;
