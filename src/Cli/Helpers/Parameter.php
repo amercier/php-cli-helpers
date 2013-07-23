@@ -167,17 +167,37 @@ class Parameter
         }
     }
 
-    public static function getFromCommandLine( array $parameters )
+    public static function getFromCommandLine( array $parameters, $args = null )
     {
+        global $argv;
         $options = array();
 
-        $rawOptions = getopt(
-                implode('', array_map(function($p) { return $p->getShortOpt(); }, $parameters)),
-                array_map(function($p) { return $p->getLongOpt(); }, $parameters)
-            );
+        if ($args === null) {
+            $rawOptions = getopt(
+                    implode('', array_map(function($p) { return $p->getShortOpt(); }, $parameters)),
+                    array_map(function($p) { return $p->getLongOpt(); }, $parameters)
+                );
+        }
+        else {
+            $allOptions = \Console_Getopt::getopt(
+                    $args,
+                    implode('', array_map(function($p) { return $p->getShortOpt(); }, $parameters)),
+                    array_map(function($p) { return str_replace(':','=',$p->getLongOpt()); }, $parameters)
+                );
 
-        // print_r( $rawOptions );
-        // echo "---------------------\n";
+            if( $allOptions instanceof \PEAR_Error ) {
+                throw new \Exception( $allOptions->getMessage() );
+            }
+
+            $rawOptions = array();
+            foreach( $allOptions[0] as $parsedOption ) {
+                $rawOptions[ preg_replace('/^--/','',$parsedOption[0]) ] = $parsedOption[1];
+            }
+        }
+
+        echo 'getopt("' . implode('', array_map(function($p) { return $p->getShortOpt(); }, $parameters)) . '") = ';
+        print_r( $rawOptions );
+        echo "---------------------\n";
 
         $options = array();
         foreach( $parameters as $key => $parameter ) {

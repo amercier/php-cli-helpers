@@ -24,10 +24,17 @@
 	"include-path": [
 		"src/"
 	],
+  "repositories": [
+    {
+      "type": "pear",
+      "url": "http://pear.php.net"
+    }
+  ],
 	"require": {
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.*",
-    "satooshi/php-coveralls": ">=0.6.1"
+    "satooshi/php-coveralls": ">=0.6.1",
+    "pear-pear/Console_Getopt": ">=1.3.1"
 	}
 }
