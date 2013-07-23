@@ -167,43 +167,28 @@ class Parameter
         }
     }
 
-    public static function getFromCommandLine( array $parameters, $args = null )
+    public static function getFromCommandLine( array $parameters, $arguments = null )
     {
         global $argv;
         $options = array();
 
-        if ($args === null) {
-            $rawOptions = getopt(
-                    implode('', array_map(function($p) { return $p->getShortOpt(); }, $parameters)),
-                    array_map(function($p) { return $p->getLongOpt(); }, $parameters)
-                );
-        }
-        else {
-            $allOptions = \Console_Getopt::getopt(
-                    $args,
-                    implode('', array_map(function($p) { return $p->getShortOpt(); }, $parameters)),
-                    array_map(function($p) { return str_replace(':','=',$p->getLongOpt()); }, $parameters)
-                );
-
-            if( $allOptions instanceof \PEAR_Error ) {
-                throw new \Exception( $allOptions->getMessage() );
-            }
-
-            $rawOptions = array();
-            foreach( $allOptions[0] as $parsedOption ) {
-                $rawOptions[ preg_replace('/^--/','',$parsedOption[0]) ] = $parsedOption[1];
-            }
-        }
-
-        // echo 'getopt("' . implode('', array_map(function($p) { return $p->getShortOpt(); }, $parameters)) . '") = ';
-        // print_r( $rawOptions );
-        // echo "---------------------\n";
+        $rawOptions = self::getOptions( $arguments === null ? $argv : $arguments );
 
         $options = array();
         foreach( $parameters as $key => $parameter ) {
             $options[ $key ] = $parameter->getValue( $rawOptions );
         }
 
+        return $options;
+    }
+
+    protected static function getOptions ($arguments) {
+        $options = array();
+        for( $i = 1 ; $i < count($arguments) ; $i++ ) {
+            if (preg_match('/^--?(.*)/', $arguments[$i], $matches)) {
+                $options[ $matches[1] ] = $i === count($arguments) - 1 ? false : $arguments[$i+1];
+            }
+        }
         return $options;
     }
 }
