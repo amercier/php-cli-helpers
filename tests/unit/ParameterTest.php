@@ -6,11 +6,9 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
 {
     const SCRIPT = 'data/test-parameters.php';
 
-    protected static $parameters;
-
-    public static function setUpBeforeClass()
+    public function getParameters()
     {
-        self::$parameters = array(
+        return array(
                 'host'     => new Parameter('h', 'host'    , '127.0.0.1'),
                 'username' => new Parameter('u', 'username', Parameter::VALUE_REQUIRED),
                 'password' => new Parameter('p', 'password', Parameter::VALUE_REQUIRED),
@@ -28,7 +26,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
                     'verbose' => false
                 ),
                 Parameter::getFromCommandLine(
-                    self::$parameters,
+                    $this->getParameters(),
                     explode(' ', self::SCRIPT . ' -u myname -p mypassword')
                 )
             );
@@ -44,7 +42,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
                     'verbose' => false
                 ),
                 Parameter::getFromCommandLine(
-                    self::$parameters,
+                    $this->getParameters(),
                     explode(' ', self::SCRIPT . ' --username myname --password mypassword')
                 )
             );
@@ -60,7 +58,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
                     'verbose' => false
                 ),
                 Parameter::getFromCommandLine(
-                    self::$parameters,
+                    $this->getParameters(),
                     explode(' ', self::SCRIPT . ' -u myname -p mypassword -h myserver.example.com')
                 )
             );
@@ -76,7 +74,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
                     'verbose' => false
                 ),
                 Parameter::getFromCommandLine(
-                    self::$parameters,
+                    $this->getParameters(),
                     explode(' ', self::SCRIPT . ' -u myname -p mypassword --host myserver.example.com')
                 )
             );
@@ -92,7 +90,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
                     'verbose' => true
                 ),
                 Parameter::getFromCommandLine(
-                    self::$parameters,
+                    $this->getParameters(),
                     explode(' ', self::SCRIPT . ' -u myname -p mypassword -v')
                 )
             );
@@ -108,7 +106,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
                     'verbose' => true
                 ),
                 Parameter::getFromCommandLine(
-                    self::$parameters,
+                    $this->getParameters(),
                     explode(' ', self::SCRIPT . ' -u myname -p mypassword --verbose')
                 )
             );
@@ -120,7 +118,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
     public function testConflictingRequiredParameter()
     {
         Parameter::getFromCommandLine(
-                self::$parameters,
+                $this->getParameters(),
                 explode(' ', self::SCRIPT . ' -u myname -p mypassword --username myname')
             );
     }
@@ -131,7 +129,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
     public function testConflictingOptionalParameter()
     {
         Parameter::getFromCommandLine(
-                self::$parameters,
+                $this->getParameters(),
                 explode(' ', self::SCRIPT . ' -u myname -p mypassword -h myserver.example.com --host myserver.example.com')
             );
     }
@@ -142,7 +140,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
     public function testConflictingSwitchParameter()
     {
         Parameter::getFromCommandLine(
-                self::$parameters,
+                $this->getParameters(),
                 explode(' ', self::SCRIPT . ' -u myname -p mypassword -v --verbose')
             );
     }
@@ -153,7 +151,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
     public function testMissingRequiredParameter()
     {
         Parameter::getFromCommandLine(
-                self::$parameters,
+                $this->getParameters(),
                 explode(' ', self::SCRIPT . '')
             );
     }
@@ -164,7 +162,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
     public function testMissingRequiredParameter2()
     {
         Parameter::getFromCommandLine(
-                self::$parameters,
+                $this->getParameters(),
                 explode(' ', self::SCRIPT . ' -u myname')
             );
     }
@@ -175,7 +173,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
     public function testMissingParameterValue()
     {
         Parameter::getFromCommandLine(
-                self::$parameters,
+                $this->getParameters(),
                 explode(' ', self::SCRIPT . ' -u')
             );
     }
@@ -186,7 +184,7 @@ class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
     public function testMissingParameterValue2()
     {
         Parameter::getFromCommandLine(
-                self::$parameters,
+                $this->getParameters(),
                 explode(' ', self::SCRIPT . ' --username')
             );
     }

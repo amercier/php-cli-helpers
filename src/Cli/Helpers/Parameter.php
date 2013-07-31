@@ -105,35 +105,49 @@ class Parameter
         return $this->long;
     }
 
-    public function getValue ($rawOptions, $arguments)
+    public function getShortSwitch()
     {
-        // Prevent short and long options simultaneously
-        if (array_key_exists($this->getShort(), $rawOptions) && array_key_exists($this->getLong(), $rawOptions)) {
-            throw new Exception\ConflictingParameters($this, $arguments);
+        return '-' . $this->getShort();
+    }
+
+    public function getLongSwitch()
+    {
+        return '--' . $this->getLong();
+    }
+
+    public function getValue ($arguments)
+    {
+        // Parse arguments
+        $index = -1;
+        foreach ($arguments as $i => $value) {
+            if ($i !== 0 && ($value === $this->getShortSwitch() || $value === $this->getLongSwitch())) {
+
+                // Prevent short and long options simultaneously
+                if ($index !== -1) {
+                    throw new Exception\ConflictingParameters($this, $arguments);
+                }
+
+                $index = $i;
+            }
         }
 
         // If it's a switch parameter (ex: -v/--verbose) return true if it was given, false otherwise
         if ($this->defaultValue === self::VALUE_NO_VALUE) {
-            return array_key_exists($this->getShort(), $rawOptions) || array_key_exists($this->getLong(), $rawOptions);
+            return $index !== -1;
         }
-
 
         // If it's a value parameter (ex: -h/--host 127.0.0.1)...
 
         // Return the value if it exists
-        if (array_key_exists($this->getShort(), $rawOptions)) {
-            return $rawOptions[ $this->getShort() ];
-        }
-
-        if (array_key_exists($this->getLong(), $rawOptions)) {
-            return $rawOptions[ $this->getLong() ];
+        if ($index  !== -1 && $index < count($arguments) - 1) {
+            return $arguments[ $index + 1 ];
         }
 
         // No value
         if ($this->defaultValue === self::VALUE_REQUIRED) { // required
-            throw in_array('-' . $this->getShort(), $arguments) || in_array('--' . $this->getLong(), $arguments)
-                ? new Exception\MissingParameterValue($this, $arguments)
-                : new Exception\MissingRequiredParameter($this, $arguments);
+            throw $index === -1
+                ? new Exception\MissingRequiredParameter($this, $arguments)
+                : new Exception\MissingParameterValue($this, $arguments);
         } else { // default value exists
 
             return $this->defaultValue;
@@ -144,30 +158,8 @@ class Parameter
     {
         global $argv;
         $options = array();
-
-        $rawOptions = self::getOptions($arguments === null ? $argv : $arguments);
-
-        $options = array();
         foreach ($parameters as $key => $parameter) {
-            $options[ $key ] = $parameter->getValue($rawOptions, $arguments === null ? $argv : $arguments);
-        }
-
-        return $options;
-    }
-
-    protected static function getOptions ($arguments)
-    {
-        $options = array();
-        for ($i = 1; $i < count($arguments); $i++) {
-            if (preg_match('/^--?(.*)/', $arguments[$i], $matches)) {
-                if ($i < count($arguments) - 1) {
-                    $options[ $matches[1] ] = $arguments[$i+1];
-                    continue;
-                    continue;
-                } else {
-                    $options[ $matches[1] ] = true;
-                }
-            }
+            $options[ $key ] = $parameter->getValue($arguments === null ? $argv : $arguments);
         }
 
         return $options;
