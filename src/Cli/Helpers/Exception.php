@@ -10,7 +10,7 @@ namespace Cli\Helpers;
  * catching a bit easier as you can catch all Cli\Helpers\Exception\* exceptions
  * with a single:
  *
- *     catch (Cli\Helpers\Exception\AbstractException $e) {
+ *     catch (Cli\Helpers\Exception $e) {
  *         ...
  *     }
  *
