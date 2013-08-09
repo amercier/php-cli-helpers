@@ -27,6 +27,31 @@ If you are not familiar with _Composer_, please read the
 [full installation intructions](docs/install.md).
 
 
+Usage
+-----
+
+
+### Parameter
+
+Utility class to handle command-line parameters.
+
+```php
+$options = \Cli\Helpers\Parameter::getFromCommandLine(array(
+    'host'     => new Parameter('h', 'host'    , '127.0.0.1'),
+    'username' => new Parameter('u', 'username', Parameter::VALUE_REQUIRED),
+    'password' => new Parameter('p', 'password', Parameter::VALUE_REQUIRED),
+    'verbose'  => new Parameter('v', 'verbose' , Parameter::VALUE_NO_VALUE),
+));
+
+$options['host'];     // given -h/--host, or 127.0.0.1 otherwise
+$options['username']; // given -u/--username
+$options['password']; // given -p/--password
+$options['verbose'];  // true if -v/--verbose is given, false otherwise
+```
+
+See [API Documentation for Parameter](docs/api-parameter.md)
+
+
 Contributing
 ------------
 
