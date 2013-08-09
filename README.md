@@ -31,7 +31,7 @@ Usage
 -----
 
 
-### Parameter
+### \Cli\Helpers\Parameter
 
 Utility class to handle command-line parameters.
 
@@ -52,7 +52,7 @@ $options['verbose'];  // true if -v/--verbose is given, false otherwise
 See [API Documentation for Parameter](docs/api-parameter.md)
 
 
-### Parameter
+### \Cli\Helpers\Job
 
 Utility class to run a job and catch exceptions.
 
