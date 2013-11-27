@@ -3,6 +3,9 @@
 namespace Cli\Helpers;
 
 /**
+ * Cli\Helpers\Job
+ * =====================
+ *
  * Utility class to run a job and catch exceptions.
  *
  * Usage
