@@ -79,6 +79,36 @@ Fighting Chuck Norris... NOK - You've received a round-house kick in the face
 See [API Documentation for Job](docs/api-job.md)
 
 
+###  \Cli\Helpers\IO
+
+Utility class to handle standard input/output.
+
+Usage
+-----
+
+```php
+\Cli\Helpers\IO::form('an apple', array(
+    'Golden Delicious',
+    'Granny Smith',
+    'Pink Lady',
+    'Royal Gala',
+));
+```
+will display:
+```
+1. Golden Delicious
+2. Granny Smith
+3. Pink Lady
+4. Royal Gala
+
+Choose an apple: |
+```
+Then, user is asked to make a choice between 1 and 3 on standard input.
+
+See [API Documentation for IO](docs/api-io.md)
+
+
+
 Contributing
 ------------
 
