@@ -23,12 +23,11 @@ class IOIntegrationTestCase extends AbstractCliScriptTestCase
 
     protected function getValuesOutput()
     {
-        return array_map(
-            function($i) {
-                return ($i + 1 < 10 ? ' ' : '') . ($i + 1) . '. ' . $this->values[$i];
-            },
-            array_keys($this->values)
-        );
+        $output = array();
+        foreach ($this->values as $i => $value) {
+            array_push($output, ($i + 1 < 10 ? ' ' : '') . ($i + 1) . '. ' . $value);
+        }
+        return $output;
     }
 
     public function testFormIsDisplayedCorrectlyAndReturnCorrectValue()
