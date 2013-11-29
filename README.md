@@ -76,6 +76,19 @@ On unsuccessful jobs:
 Fighting Chuck Norris... NOK - You've received a round-house kick in the face
 ```
 
+You can also add parameters to the function:
+
+```php
+\Cli\Helpers\Job::run(
+    'Doing awesome stuff',
+    function($a, $b) {
+        $a; // => 1337;
+        $a; // => 'good luck, im behind 7 firewalls';
+    },
+    array(1337, 'im behind 7 firewalls')
+});
+```
+
 See [API Documentation for Job](docs/api-job.md)
 
 

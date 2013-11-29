@@ -30,6 +30,19 @@ namespace Cli\Helpers;
  * ```
  * Fighting Chuck Norris... NOK - You've received a round-house kick in the face
  * ```
+ *
+ * You can also add parameters to the function:
+ *
+ * ```php
+ * \Cli\Helpers\Job::run(
+ *     'Doing awesome stuff',
+ *     function($a, $b) {
+ *         $a; // => 1337;
+ *         $a; // => 'good luck, im behind 7 firewalls';
+ *     },
+ *     array(1337, 'im behind 7 firewalls')
+ * });
+ * ```
  */
 class Job
 {
@@ -37,10 +50,11 @@ class Job
     protected $function;
     protected $debug;
 
-    public function __construct($message, $function, $debug = false)
+    public function __construct($message, $function, $arguments = array(), $debug = false)
     {
         $this->message = $message;
         $this->function = $function;
+        $this->arguments = $arguments;
         $this->debug = $debug;
     }
 
@@ -48,8 +62,7 @@ class Job
     {
         echo $this->message . '... ';
         try {
-            $function = $this->function;
-            $result = $function();
+            $result = call_user_func_array($this->function, $this->arguments);
         } catch (\Exception $e) {
             echo 'NOK - ' . $e->getMessage() . "\n";
             if ($this->debug) {
@@ -61,9 +74,9 @@ class Job
         return $result;
     }
 
-    public static function run($message, $function, $debug = false)
+    public static function run($message, $function, $arguments = array(), $debug = false)
     {
-        $job = new Job($message, $function, $debug);
+        $job = new Job($message, $function, $arguments, $debug);
         return $job->start();
     }
 }
