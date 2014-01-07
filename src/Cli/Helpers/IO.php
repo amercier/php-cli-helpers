@@ -62,4 +62,44 @@ class IO
 
         return $response - 1;
     }
+
+    public static function strPadAll(
+        $lines,
+        $modes = array(),
+        $lineSeparator = "\n",
+        $columnSeparator = ' ',
+        $fillCharacter = ' '
+    ) {
+        // Find the max length of each column
+        $wordLengths = array();
+        foreach ($lines as $i => $words) {
+            if (!is_array($words)) {
+                $words = array($words);
+                $lines[$i] = $words;
+            }
+            foreach ($words as $j => $word) {
+                $length = strlen($word);
+                $wordLengths[$j] =
+                    array_key_exists($j, $wordLengths)
+                    ? max($wordLengths[$j], $length)
+                    : $length;
+            }
+        }
+
+        // Create the output
+        $output = '';
+        foreach ($lines as $i => $words) {
+            $output .= $i === 0 ? '' : $lineSeparator;
+
+            $line = '';
+            foreach ($words as $j => $word) {
+                $mode = array_key_exists($j, $modes) ? $modes[$j] : STR_PAD_RIGHT;
+                $line .= $j === 0 ? '' : $columnSeparator;
+                $line .= str_pad($word, $wordLengths[$j], $fillCharacter, $mode);
+            }
+            $output .= trim($line);
+        }
+
+        return $output;
+    }
 }

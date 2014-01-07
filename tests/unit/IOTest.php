@@ -87,4 +87,34 @@ class IOUnitTestCase extends PHPUnit_Framework_TestCase
             )
         )));
     }
+
+    public function testStrPadAll()
+    {
+        $this->assertEquals(
+              "#   EN          FR   ES\n"
+            . "\n"
+            . "1   One         Un   Uno\n"
+            . "2   Two       Deux   Dos\n"
+            . "3   Three    Trois   Tres\n"
+            . "4   Four    Quatre   Cuatro\n"
+            . "5   Five      Cinq   Cinco",
+            IO::strPadAll(
+                array(
+                    array('#', 'EN', 'FR', 'ES'),
+                    '',
+                    array('1', 'One', 'Un', 'Uno'),
+                    array('2', 'Two', 'Deux', 'Dos'),
+                    array('3', 'Three', 'Trois', 'Tres'),
+                    array('4', 'Four', 'Quatre', 'Cuatro'),
+                    array('5', 'Five', 'Cinq', 'Cinco'),
+                ),
+                array(
+                    2 => STR_PAD_LEFT,
+                    3 => STR_PAD_RIGHT,
+                ),
+                "\n",
+                '   '
+            )
+        );
+    }
 }
