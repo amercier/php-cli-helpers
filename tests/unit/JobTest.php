@@ -10,7 +10,7 @@ class JobUnitTestCase extends PHPUnit_Framework_TestCase
         $return = Job::run('Running successful job', function() { return ':D'; });
         $output = ob_get_clean();
 
-        $this->assertEquals($return, ':D');
+        $this->assertEquals(':D', $return);
         $this->assertEquals("Running successful job... OK\n", $output);
     }
 
@@ -22,7 +22,7 @@ class JobUnitTestCase extends PHPUnit_Framework_TestCase
         });
         $output = ob_get_clean();
 
-        $this->assertEquals($return, false);
+        $this->assertEquals(false, $return);
         $this->assertEquals("Running unsuccessful job... NOK - :'(\n", $output);
     }
 
@@ -34,7 +34,7 @@ class JobUnitTestCase extends PHPUnit_Framework_TestCase
         }, array(), true);
         $output = ob_get_clean();
 
-        $this->assertEquals($return, false);
+        $this->assertEquals(false, $return);
         $this->assertStringStartsWith("Running unsuccessful job... NOK - :'(\n", $output);
         foreach(array('JobTest.php(32)', 'Job.php(38)', 'Job.php(23)') as $fragment) {
             $this->assertRegExp('/.*' . preg_quote($fragment, '/') . '.*/', $fragment);
