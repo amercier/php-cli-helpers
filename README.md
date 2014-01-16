@@ -96,6 +96,8 @@ See [API Documentation for Job](docs/api-job.md)
 
 Utility class to handle standard input/output.
 
+#### IO::form
+
 Usage
 -----
 
@@ -117,6 +119,38 @@ will display:
 Choose an apple: |
 ```
 Then, user is asked to make a choice between 1 and 3 on standard input.
+
+#### IO::strPadAll
+
+```php
+echo IO::strPadAll(
+    array( // items
+        array('#', 'EN', 'FR', 'ES'),
+        '',
+        array('1', 'One', 'Un', 'Uno'),
+        array('2', 'Two', 'Deux', 'Dos'),
+        array('3', 'Three', 'Trois', 'Tres'),
+        array('4', 'Four', 'Quatre', 'Cuatro'),
+        array('5', 'Five', 'Cinq', 'Cinco'),
+    ),
+    array( // alignment
+        2 => STR_PAD_LEFT,
+        3 => STR_PAD_RIGHT,
+    ),
+    "\n", // line separator
+    '   ' // field separator
+));
+```
+will display:
+```
+#   EN          FR   ES
+
+1   One         Un   Uno
+2   Two       Deux   Dos
+3   Three    Trois   Tres
+4   Four    Quatre   Cuatro
+5   Five      Cinq   Cinco
+```
 
 See [API Documentation for IO](docs/api-io.md)
 
