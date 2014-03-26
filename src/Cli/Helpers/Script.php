@@ -189,9 +189,6 @@ class Script
         $this->parameters[$id] = $parameter;
         $this->parameterDescriptions[$id] = $description;
 
-        print_r($this->parameters);
-        print_r($this->parameterDescriptions);
-
         return $this;
     }
 
