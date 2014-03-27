@@ -70,8 +70,9 @@ class Script
     protected $copyright;
     protected $parameters = array();
     protected $parameterDescriptions = array();
+    protected $parameterCallbacks = array();
     protected $program;
-    protected $captureExceptions = true;
+    protected $exceptionCatchingEnabled = true;
 
     public static function create()
     {
@@ -83,15 +84,23 @@ class Script
         $this->addParameter(
             new Parameter('h', 'help', Parameter::VALUE_NO_VALUE),
             'Display this help and exit.',
-            function ($parameters) {
-
+            function ($arguments) {
+                echo 'Usage: ' . $arguments[0] . "[OPTIONS]\n"
+                    . "\n"
+                    . $this->description . "\n"
+                    . "\n"
+                    . $this->name . ' v' . $this->version . "\n"
+                    . 'Copyright (c) ' . $this->copyright . "\n";
+                return false;
             }
         );
         $this->addParameter(
             new Parameter('v', 'version', Parameter::VALUE_NO_VALUE),
             'Output version information and exit.',
-            function ($parameters) {
-
+            function ($arguments) {
+                echo $this->name . ' v' . $this->version . "\n"
+                    . 'Copyright (c) ' . $this->copyright . "\n";
+                return false;
             }
         );
     }
@@ -112,9 +121,21 @@ class Script
         }
     }
 
-    protected function initOptions($arguments = null)
+    protected function initParameters($arguments = null)
     {
         return Parameter::getFromCommandLine($this->parameters, $arguments);
+    }
+
+    protected function processParameters($arguments)
+    {
+        foreach ($this->parameterCallbacks as $id => $callback) {
+            if ($this->parameters[$id]) {
+                if ($callback($arguments) === false) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -122,7 +143,7 @@ class Script
      *
      * If an exception is thrown during execution of the program, the error
      * message is displayed on STDERR, and the script exits with return code 0.
-     * To prevent catching the exception, use #setCaptureExceptions(false).
+     * To prevent catching the exception, use #setExceptionCatchingEnabled(false).
      *
      * @param  array  $parameters  The script parameters
      * @return mixed            Returns whatever the program returns
@@ -130,7 +151,7 @@ class Script
     protected function run($parameters)
     {
         $program = $this->program;
-        if (!$this->captureExceptions) {
+        if (!$this->exceptionCatchingEnabled) {
             return $program($parameters);
         }
 
@@ -172,7 +193,13 @@ class Script
         return $this;
     }
 
-    public function addParameter($parameter, $description)
+    public function setExceptionCatchingEnabled($exceptionCatchingEnabled)
+    {
+        $this->exceptionCatchingEnabled = $exceptionCatchingEnabled;
+        return $this;
+    }
+
+    public function addParameter($parameter, $description, $callback = null)
     {
 
         // Check whether a parameter with the same switch already exists
@@ -188,6 +215,12 @@ class Script
         $id = $parameter->getLong();
         $this->parameters[$id] = $parameter;
         $this->parameterDescriptions[$id] = $description;
+        if ($callback) {
+            if ($parameter->getDefaultValue() !== Parameter::VALUE_NO_VALUE) {
+                throw new Exception\InvalidScriptParameter();
+            }
+            $this->parameterCallbacks[$id] = $callback;
+        }
 
         return $this;
     }
@@ -203,7 +236,11 @@ class Script
     public function start($arguments = null)
     {
         $this->checkProperties();
-        $parameters = $this->initOptions($arguments);
+        $parameters = $this->initParameters($arguments);
+        $continue = $this->processParameters($arguments);
+        if (!$continue) {
+            return;
+        }
         return $this->run($parameters);
     }
 }
