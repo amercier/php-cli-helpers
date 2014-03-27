@@ -17,7 +17,6 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             ->addParameter(new Parameter('n', 'name'   , 'World'                  ), 'Set the name of the person to greet')
             ->addParameter(new Parameter('V', 'verbose', Parameter::VALUE_NO_VALUE), 'Increase verbosity')
             ->setProgram(function($options) {
-                print_r($options);
                 echo 'Hello, ' . $options['name'];
                 if ($options['verbose']) {
                     echo ' Nice to see you again :)';
@@ -91,10 +90,43 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
         $this->assertEquals(true, true);
     }
 
+    /**
+     * @expectedException Cli\Helpers\Exception\DuplicateScriptParameter
+     */
+    public function testDuplicateShortSwitch()
+    {
+        Cli\Helpers\Script::create()
+            // ->setName('Hello')
+            ->setVersion('1.0')
+            ->setDescription('Say hello to the world or to a particular person')
+            ->setCopyright('Copyright (c) Orange ECV 2013')
+            ->addParameter(new Parameter('n', 'name'    , 'World'                 ), 'Set the name of the person to greet')
+            ->addParameter(new Parameter('n', 'nickname', 'World'                 ), 'Set the nickname of the person to greet')
+            ->addParameter(new Parameter('V', 'verbose', Parameter::VALUE_NO_VALUE), 'Increase verbosity')
+            ->setProgram(function($options) {})
+            ->start(array());
+    }
+
+    /**
+     * @expectedException Cli\Helpers\Exception\DuplicateScriptParameter
+     */
+    public function testDuplicateLongSwitch()
+    {
+        Cli\Helpers\Script::create()
+            // ->setName('Hello')
+            ->setVersion('1.0')
+            ->setDescription('Say hello to the world or to a particular person')
+            ->setCopyright('Copyright (c) Orange ECV 2013')
+            ->addParameter(new Parameter('n', 'name'   , 'World'                  ), 'Set the name of the person to greet')
+            ->addParameter(new Parameter('M', 'name'   , 'World'                  ), 'Set the nickname of the person to greet')
+            ->addParameter(new Parameter('V', 'verbose', Parameter::VALUE_NO_VALUE), 'Increase verbosity')
+            ->setProgram(function($options) {})
+            ->start(array());
+    }
+
     public function testStartIsReturningValue()
     {
         $result = $this->helloWorld->start(array());
         $this->assertEquals('OK', $result);
     }
-
 }
