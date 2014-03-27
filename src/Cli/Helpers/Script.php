@@ -130,7 +130,7 @@ class Script
     protected function run($parameters)
     {
         $program = $this->program;
-        if ($this->captureExceptions) {
+        if (!$this->captureExceptions) {
             return $program($parameters);
         }
 
