@@ -115,6 +115,11 @@ class Parameter
         return '--' . $this->getLong();
     }
 
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
+    }
+
     public function getValue ($arguments)
     {
         // Parse arguments
