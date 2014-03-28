@@ -9,7 +9,8 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->helloWorld = Script::create()
+        $this->helloWorld = new Script();
+        $this->helloWorld
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             ->setVersion('1.0')
@@ -35,7 +36,8 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testNameRequired()
     {
-        Script::create()
+        $script = new Script();
+        $script
             ->setExceptionCatchingEnabled(false)
             // ->setName('Hello')
             ->setVersion('1.0')
@@ -50,7 +52,8 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testVersionRequired()
     {
-        Script::create()
+        $script = new Script();
+        $script
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             // ->setVersion('1.0')
@@ -65,7 +68,8 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testDescriptionRequired()
     {
-        Script::create()
+        $script = new Script();
+        $script
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             ->setVersion('1.0')
@@ -77,7 +81,8 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
 
     public function testCopyrightNotRequired()
     {
-        Script::create()
+        $script = new Script();
+        $script
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             ->setVersion('1.0')
@@ -95,7 +100,8 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testProgramRequired()
     {
-        Script::create()
+        $script = new Script();
+        $script
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             ->setVersion('1.0')
@@ -113,7 +119,8 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testDuplicateShortSwitch()
     {
-        Script::create()
+        $script = new Script();
+        $script
             ->setExceptionCatchingEnabled(false)
             // ->setName('Hello')
             ->setVersion('1.0')
@@ -130,7 +137,8 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testDuplicateLongSwitch()
     {
-        Script::create()
+        $script = new Script();
+        $script
             ->setExceptionCatchingEnabled(false)
             // ->setName('Hello')
             ->setVersion('1.0')
@@ -254,4 +262,24 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             function() {}
         );
     }
+
+    public function testBlockingParameterCallbackIsExecutedEvenIfRequiredParameterIsMissing()
+    {
+        $helloWorld = clone $this->helloWorld;
+        $helloWorld->addParameter(
+            new Parameter('u', 'username', Parameter::VALUE_REQUIRED),
+            'The username'
+        );
+        $helloWorld->addParameter(
+            new Parameter('a', 'alternate-action', Parameter::VALUE_NO_VALUE),
+            'Alternate action',
+            function() {
+                echo "Executing alternate action\n";
+                return false;
+            }
+        );
+        $helloWorld->start(array('script.php', '--alternate-action'));
+        $this->expectOutputString("Executing alternate action\n");
+    }
+
 }

@@ -19,7 +19,8 @@ namespace Cli\Helpers;
  *
  * require_once 'vendor/autoload.php';
  *
- * Cli\Helpers\Script::create()
+ * $script = new Cli\Helpers\Script();
+ * $script
  *     ->setName('Hello')
  *     ->setVersion('1.0')
  *     ->setDescription('Say hello to the world or to a particular person')
@@ -74,11 +75,6 @@ class Script
     protected $program;
     protected $exceptionCatchingEnabled = true;
 
-    public static function create()
-    {
-        return new self();
-    }
-
     public function __construct()
     {
     }
@@ -104,8 +100,20 @@ class Script
         return Parameter::getFromCommandLine($this->parameters, $arguments);
     }
 
-    protected function processParameters($arguments, $parameterValues)
+    protected function processParameters($arguments)
     {
+        // Get parameter values without throwing exceptions in case of missing
+        // required parameter
+        $parameterValues = array();
+        foreach ($this->parameters as $id => $parameter) {
+            try {
+                $value = Parameter::getFromCommandLine(array($id => $parameter), $arguments);
+                $parameterValues[$id] = $value[$id];
+            } catch (Exception\MissingRequiredParameter $e) {
+                $parameterValues[$id] = null;
+            }
+        }
+
         foreach ($this->parameterCallbacks as $id => $callback) {
             if ($parameterValues[$id] === true) {
                 if ($callback($arguments) === false) {
@@ -184,10 +192,10 @@ class Script
         // Check whether a parameter with the same switch already exists
         foreach ($this->parameters as $p) {
             if ($p->getShort() === $parameter->getShort()) {
-                throw new Exception\DuplicateScriptParameter($p->getShort());
+                throw new Exception\DuplicateScriptParameter($p->getShortSwitch(), $p);
             }
             if ($p->getLong() === $parameter->getLong()) {
-                throw new Exception\DuplicateScriptParameter($p->getLong());
+                throw new Exception\DuplicateScriptParameter($p->getLongSwitch(), $p);
             }
         }
 
@@ -215,11 +223,13 @@ class Script
     public function start($arguments = null)
     {
         $this->checkProperties();
-        $parameterValues = $this->initParameters($arguments);
-        $continue = $this->processParameters($arguments, $parameterValues);
+
+        $continue = $this->processParameters($arguments);
         if (!$continue) {
             return;
         }
+
+        $parameterValues = $this->initParameters($arguments);
         return $this->run($arguments, $parameterValues);
     }
 }
