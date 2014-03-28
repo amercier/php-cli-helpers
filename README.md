@@ -52,6 +52,65 @@ $options['verbose'];  // true if -v/--verbose is given, false otherwise
 See [API Documentation for Parameter](docs/api-parameter.md)
 
 
+### \Cli\Helpers\Script and \Cli\Helpers\DocumentedScript
+
+Utility class to write scripts as objects.
+
+```php
+#!/usr/bin/env php
+<?php
+require_once dirname(__FILE__) . '/path/to/vendor/autoload.php';
+
+use Cli\Helpers\DocumentedScript;
+use Cli\Helpers\Parameter;
+
+$script = new DocumentedScript();
+$script
+    ->setName('test-documented-script.php')
+    ->setVersion('1.0')
+    ->setDescription('Test script for Cli\Helpers\DocumentedScript')
+    ->setCopyright('2014 Alexandre Mercier')
+    ->addParameter(new Parameter('H', 'host'    , '127.0.0.1')              , 'Host.')
+    ->addParameter(new Parameter('u', 'username', Parameter::VALUE_REQUIRED), 'User name.')
+    ->addParameter(new Parameter('p', 'password', Parameter::VALUE_REQUIRED), 'Password.')
+    ->addParameter(new Parameter('v', 'verbose' , Parameter::VALUE_NO_VALUE), 'Enable verbosity.')
+    ->setProgram(function ($options, $arguments) {
+        var_dump($arguments);
+        var_dump($options);
+    })
+    ->start();
+```
+
+While `Script` doesn't have any pre-configured switch, `DocumentedScript` has 
+`--h, --help` and `-V, --version`. This provides an automaic handling of this
+two switches.
+
+Ex: `test-documented-script.php -V`:
+
+```
+test-documented-script.php v1.0
+Copyright (c) 2014 Alexandre Mercier
+```
+
+Ex: `test-documented-script.php -h`:
+
+```
+Usage: test-documented-script.php -p PASSWORD -u USERNAME [OPTIONS]
+
+Test script for Cli\Helpers\DocumentedScript
+
+  -H, --host     HOST        Host (defaults to '127.0.0.1').
+  -u, --username USERNAME    User name.
+  -p, --password PASSWORD    Password.
+  -v, --verbose              Enable verbosity.
+  -h, --help                 Display this help and exit.
+  -V, --version              Output version information and exit.
+
+test-documented-script.php v1.0
+Copyright (c) 2014 Alexandre Mercier
+```
+
+
 ### \Cli\Helpers\Job
 
 Utility class to run a job and catch exceptions.
