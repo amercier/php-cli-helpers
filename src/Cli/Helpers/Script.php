@@ -67,12 +67,13 @@ use \Closure;
  */
 class Script
 {
-    protected $name;
-    protected $version;
-    protected $description;
-    protected $copyright;
-    protected $parameters = array();
-    protected $parameterDescriptions = array();
+    public $name;
+    public $version;
+    public $description;
+    public $copyright;
+    public $parameters = array();
+    public $parameterDescriptions = array();
+
     protected $parameterCallbacks = array();
     protected $program;
     protected $exceptionCatchingEnabled = true;
