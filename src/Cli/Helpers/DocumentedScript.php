@@ -17,7 +17,7 @@ class DocumentedScript extends Script
             'Output version information and exit.',
             function ($options, $arguments, $that) {
                 echo $that->name . ' v' . $that->version . "\n"
-                    . $that->copyright . "\n";
+                    . ($that->copyright ? 'Copyright (c) ' . $this->copyright . "\n" : '');
                 return false;
             }
         );
@@ -65,12 +65,12 @@ class DocumentedScript extends Script
 
                 echo " [OPTIONS]\n"
                     . "\n"
-                    . $this->description . "\n"
+                    . $that->description . "\n"
                     . "\n"
                     . IO::strPadAll($options, array(), "\n", ' ', ' ', false) . "\n"
                     . "\n"
-                    . $this->name . ' v' . $this->version . "\n"
-                    . ($this->copyright ? 'Copyright (c) ' . $this->copyright . "\n" : '');
+                    . $that->name . ' v' . $that->version . "\n"
+                    . ($that->copyright ? 'Copyright (c) ' . $that->copyright . "\n" : '');
                 return false;
             }
         );
