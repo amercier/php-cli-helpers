@@ -10,8 +10,8 @@ use Cli\Helpers\Exception as CliHelpersException;
  */
 class DuplicateScriptParameter extends CliHelpersException
 {
-    public function __construct($switch)
+    public function __construct($type)
     {
-        parent::__construct('Switch ' . $switch . ' is already defined');
+        parent::__construct('Switch ' . $type . ' is already defined');
     }
 }
