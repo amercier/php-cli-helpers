@@ -169,4 +169,9 @@ class Parameter
 
         return $options;
     }
+
+    public function __toString()
+    {
+        return $this->getShortSwitch() . ', ' . $this->getLongSwitch();
+    }
 }
