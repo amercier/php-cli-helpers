@@ -85,15 +85,17 @@ While `Script` doesn't have any pre-configured switch, `DocumentedScript` has
 `--h, --help` and `-V, --version`. This provides an automaic handling of this
 two switches.
 
-Ex: `test-documented-script.php -V`:
+Version example:
 
+`test-documented-script.php -V`
 ```
 test-documented-script.php v1.0
 Copyright (c) 2014 Alexandre Mercier
 ```
 
-Ex: `test-documented-script.php -h`:
+Help example:
 
+`test-documented-script.php -h`
 ```
 Usage: test-documented-script.php -p PASSWORD -u USERNAME [OPTIONS]
 
