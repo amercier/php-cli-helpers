@@ -140,9 +140,9 @@ class Script
      */
     protected function run($arguments)
     {
-        $program = Closure::bind($this->program, $this);
+        $program = $this->program;
         if (!$this->exceptionCatchingEnabled) {
-            return $program($this->initParameters($arguments), $arguments);
+            return $program($this->initParameters($arguments), $arguments, $this);
         }
 
         try {
@@ -209,7 +209,7 @@ class Script
             if ($parameter->getDefaultValue() !== Parameter::VALUE_NO_VALUE) {
                 throw new Exception\InvalidScriptParameter($parameter);
             }
-            $this->parameterCallbacks[$id] = Closure::bind($callback, $this);
+            $this->parameterCallbacks[$id] = $callback;
         }
 
         return $this;

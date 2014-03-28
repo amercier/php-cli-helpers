@@ -15,9 +15,9 @@ class DocumentedScript extends Script
         $this->addParameter(
             new Parameter('V', 'version', Parameter::VALUE_NO_VALUE),
             'Output version information and exit.',
-            function ($options, $arguments) {
-                echo $this->name . ' v' . $this->version . "\n"
-                    . ($this->copyright ? $this->copyright . "\n" : '');
+            function ($options, $arguments, $that) {
+                echo $that->name . ' v' . $that->version . "\n"
+                    . ($that->copyright ? $that->copyright . "\n" : '');
                 return false;
             }
         );
@@ -28,11 +28,11 @@ class DocumentedScript extends Script
         $this->addParameter(
             new Parameter('h', 'help', Parameter::VALUE_NO_VALUE),
             'Display this help and exit.',
-            function ($options, $arguments) {
+            function ($options, $arguments, $that) {
                 echo 'Usage: ' . $arguments[0];
 
                 $lines = array();
-                foreach ($this->parameters as $id => $parameter) {
+                foreach ($that->parameters as $id => $parameter) {
 
                     // Show in syntax line if required
                     if ($parameter->getDefaultValue() === Parameter::VALUE_REQUIRED) {
@@ -55,22 +55,22 @@ class DocumentedScript extends Script
                             ? preg_replace(
                                 '/(\\.)?$/',
                                 ' (defaults to \'' . $parameter->getDefaultValue() . '\')$1',
-                                $this->parameterDescriptions[$id],
+                                $that->parameterDescriptions[$id],
                                 1
                             )
-                            : $this->parameterDescriptions[$id]
+                            : $that->parameterDescriptions[$id]
                         ),
                     );
                 }
 
                 echo " [OPTIONS]\n"
                     . "\n"
-                    . $this->description . "\n"
+                    . $that->description . "\n"
                     . "\n"
                     . IO::strPadAll($lines, array(), "\n", ' ', ' ', false) . "\n"
                     . "\n"
-                    . $this->name . ' v' . $this->version . "\n"
-                    . ($this->copyright ? $this->copyright . "\n" : '');
+                    . $that->name . ' v' . $that->version . "\n"
+                    . ($that->copyright ? $that->copyright . "\n" : '');
                 return false;
             }
         );
