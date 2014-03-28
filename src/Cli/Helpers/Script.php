@@ -223,10 +223,7 @@ class Script
     {
         $this->checkProperties();
 
-        if ($arguments === null) {
-            global $argv;
-            $arguments = $argv;
-        }
+        $arguments = $arguments === null ? $argv : $arguments;
 
         $continue = $this->processParameters($arguments);
         if (!$continue) {
