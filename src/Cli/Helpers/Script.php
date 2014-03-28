@@ -2,6 +2,8 @@
 
 namespace Cli\Helpers;
 
+use \Closure;
+
 /**
  * Cli\Helpers\Script
  * ==================
@@ -137,7 +139,7 @@ class Script
      */
     protected function run($arguments)
     {
-        $program = $this->program;
+        $program = Closure::bind($this->program, $this);
         if (!$this->exceptionCatchingEnabled) {
             return $program($this->initParameters($arguments), $arguments);
         }
@@ -206,7 +208,7 @@ class Script
             if ($parameter->getDefaultValue() !== Parameter::VALUE_NO_VALUE) {
                 throw new Exception\InvalidScriptParameter($parameter);
             }
-            $this->parameterCallbacks[$id] = $callback;
+            $this->parameterCallbacks[$id] = Closure::bind($callback, $this);
         }
 
         return $this;
