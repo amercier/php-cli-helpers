@@ -15,7 +15,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             ->setName('Hello')
             ->setVersion('1.0')
             ->setDescription('Say hello to the world or to a particular person')
-            ->setCopyright('Copyright (c) Alexandre Mercier 2013')
+            ->setCopyright('Copyright (c) Alexandre Mercier 2014')
             ->addParameter(new Parameter('n', 'name'   , 'World'                  ), 'Set the name of the person to greet')
             ->addParameter(new Parameter('V', 'verbose', Parameter::VALUE_NO_VALUE), 'Increase verbosity')
             ->setProgram(function($options) {
@@ -42,7 +42,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             // ->setName('Hello')
             ->setVersion('1.0')
             ->setDescription('Say hello to the world or to a particular person')
-            ->setCopyright('Copyright (c) Alexandre Mercier 2013')
+            ->setCopyright('Copyright (c) Alexandre Mercier 2014')
             ->setProgram(function($options) {})
             ->start(array());
     }
@@ -58,7 +58,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             ->setName('Hello')
             // ->setVersion('1.0')
             ->setDescription('Say hello to the world or to a particular person')
-            ->setCopyright('Copyright (c) Alexandre Mercier 2013')
+            ->setCopyright('Copyright (c) Alexandre Mercier 2014')
             ->setProgram(function($options) {})
             ->start(array());
     }
@@ -74,7 +74,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             ->setName('Hello')
             ->setVersion('1.0')
             // ->setDescription('Say hello to the world or to a particular person')
-            ->setCopyright('Copyright (c) Alexandre Mercier 2013')
+            ->setCopyright('Copyright (c) Alexandre Mercier 2014')
             ->setProgram(function($options) {})
             ->start(array());
     }
@@ -87,7 +87,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             ->setName('Hello')
             ->setVersion('1.0')
             ->setDescription('Say hello to the world or to a particular person')
-            // ->setCopyright('Copyright (c) Alexandre Mercier 2013')
+            // ->setCopyright('Copyright (c) Alexandre Mercier 2014')
             ->setProgram(function($options) {
                 return true;
             })
@@ -106,7 +106,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             ->setName('Hello')
             ->setVersion('1.0')
             ->setDescription('Say hello to the world or to a particular person')
-            ->setCopyright('Copyright (c) Alexandre Mercier 2013')
+            ->setCopyright('Copyright (c) Alexandre Mercier 2014')
             // ->setProgram(function($options) {
             //     return true;
             // })
@@ -125,7 +125,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             // ->setName('Hello')
             ->setVersion('1.0')
             ->setDescription('Say hello to the world or to a particular person')
-            ->setCopyright('Copyright (c) Alexandre Mercier 2013')
+            ->setCopyright('Copyright (c) Alexandre Mercier 2014')
             ->addParameter(new Parameter('n', 'name'    , 'World'), 'Set the name of the person to greet')
             ->addParameter(new Parameter('n', 'nickname', 'World'), 'Set the nickname of the person to greet')
             ->setProgram(function($options) {})
@@ -143,7 +143,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
             // ->setName('Hello')
             ->setVersion('1.0')
             ->setDescription('Say hello to the world or to a particular person')
-            ->setCopyright('Copyright (c) Alexandre Mercier 2013')
+            ->setCopyright('Copyright (c) Alexandre Mercier 2014')
             ->addParameter(new Parameter('n', 'name', 'World'), 'Set the name of the person to greet')
             ->addParameter(new Parameter('M', 'name', 'World'), 'Set the nickname of the person to greet')
             ->setProgram(function($options) {})

@@ -15,7 +15,7 @@ class DocumentedScriptUnitTestCase extends PHPUnit_Framework_TestCase
             ->setName('Hello')
             ->setVersion('1.0')
             ->setDescription('Say hello to the world or to a particular person')
-            ->setCopyright('Copyright (c) Alexandre Mercier 2013')
+            ->setCopyright('Copyright (c) Alexandre Mercier 2014')
             ->addParameter(new Parameter('p', 'password', Parameter::VALUE_REQUIRED), 'The password.')
             ->addParameter(new Parameter('u', 'username', Parameter::VALUE_REQUIRED), 'The username.')
             ->addParameter(new Parameter('H', 'host'    , '127.0.0.1')              , 'The host.')
@@ -38,7 +38,7 @@ class DocumentedScriptUnitTestCase extends PHPUnit_Framework_TestCase
             . "  -V, --version              Output version information and exit.\n"
             . "\n"
             . "Hello v1.0\n"
-            . "Copyright (c) Copyright (c) Alexandre Mercier 2013\n"
+            . "Copyright (c) Copyright (c) Alexandre Mercier 2014\n"
         );
     }
 
@@ -46,7 +46,7 @@ class DocumentedScriptUnitTestCase extends PHPUnit_Framework_TestCase
         $result = $this->helloWorld->start(array('script.php', '-V'));
         $this->expectOutputString(
             "Hello v1.0\n"
-            . "Copyright (c) Alexandre Mercier 2013\n"
+            . "Copyright (c) Alexandre Mercier 2014\n"
         );
     }
 }
