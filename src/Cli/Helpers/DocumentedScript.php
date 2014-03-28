@@ -10,12 +10,12 @@ class DocumentedScript extends Script
         $this->addHelpParameter();
     }
 
-    protected function addHelpParameter()
+    protected function addVersionParameter()
     {
         $this->addParameter(
-            new Parameter('h', 'help', Parameter::VALUE_NO_VALUE),
+            new Parameter('V', 'version', Parameter::VALUE_NO_VALUE),
             'Output version information and exit.',
-            function ($arguments) {
+            function ($options, $arguments) {
                 echo $this->name . ' v' . $this->version . "\n"
                     . $this->copyright . "\n";
                 return false;
@@ -23,12 +23,12 @@ class DocumentedScript extends Script
         );
     }
 
-    protected function addVersionParameter()
+    protected function addHelpParameter()
     {
         $this->addParameter(
-            new Parameter('V', 'version', Parameter::VALUE_NO_VALUE),
+            new Parameter('h', 'help', Parameter::VALUE_NO_VALUE),
             'Display this help and exit.',
-            function ($arguments) {
+            function ($options, $arguments) {
                 echo 'Usage: ' . $arguments[0];
 
                 $options = array();
@@ -70,7 +70,7 @@ class DocumentedScript extends Script
                     . IO::strPadAll($options, array(), "\n", ' ', ' ', false) . "\n"
                     . "\n"
                     . $this->name . ' v' . $this->version . "\n"
-                    . 'Copyright (c) ' . $this->copyright . "\n";
+                    . ($this->copyright ? 'Copyright (c) ' . $this->copyright . "\n" : '');
                 return false;
             }
         );

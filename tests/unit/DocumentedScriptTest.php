@@ -24,8 +24,8 @@ class DocumentedScriptUnitTestCase extends PHPUnit_Framework_TestCase
             });
     }
 
-    public function testVersion() {
-        $result = $this->helloWorld->start(array('script.php', '-V'));
+    public function testHelp() {
+        $result = $this->helloWorld->start(array('script.php', '-h'));
         $this->expectOutputString(
             "Usage: script.php -u USERNAME -p PASSWORD [OPTIONS]\n"
             . "\n"
@@ -42,8 +42,8 @@ class DocumentedScriptUnitTestCase extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testHelp() {
-        $result = $this->helloWorld->start(array('script.php', '-h'));
+    public function testVersion() {
+        $result = $this->helloWorld->start(array('script.php', '-V'));
         $this->expectOutputString(
             "Hello v1.0\n"
             . "Copyright (c) Purple DBU 2013\n"

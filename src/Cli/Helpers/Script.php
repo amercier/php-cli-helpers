@@ -104,19 +104,19 @@ class Script
     {
         // Get parameter values without throwing exceptions in case of missing
         // required parameter
-        $parameterValues = array();
+        $options = array();
         foreach ($this->parameters as $id => $parameter) {
             try {
                 $value = Parameter::getFromCommandLine(array($id => $parameter), $arguments);
-                $parameterValues[$id] = $value[$id];
+                $options[$id] = $value[$id];
             } catch (Exception\MissingRequiredParameter $e) {
-                $parameterValues[$id] = null;
+                $options[$id] = null;
             }
         }
 
         foreach ($this->parameterCallbacks as $id => $callback) {
-            if ($parameterValues[$id] === true) {
-                if ($callback($arguments) === false) {
+            if ($options[$id] === true) {
+                if ($callback($options, $arguments) === false) {
                     return false;
                 }
             }
@@ -131,19 +131,18 @@ class Script
      * message is displayed on STDERR, and the script exits with return code 0.
      * To prevent catching the exception, use #setExceptionCatchingEnabled(false).
      *
-     * @param  array  $arguments        The original arguments given to the script
-     * @param  array  $parameterValues  The parameters values parsed from the given arguments
-     * @return mixed                    Returns whatever the program returns
+     * @param  array  $arguments  The original arguments given to the script
+     * @return mixed              Returns whatever the program returns
      */
-    protected function run($arguments, $parameterValues)
+    protected function run($arguments)
     {
         $program = $this->program;
         if (!$this->exceptionCatchingEnabled) {
-            return $program($parameterValues);
+            return $program($this->initParameters($arguments), $arguments);
         }
 
         try {
-            return $program($parameterValues);
+            return $program($this->initParameters($arguments), $arguments);
         } catch (\Exception $e) {
             fwrite(STDERR, $e->getMessage() . "\n");
             exit(1);
@@ -224,12 +223,16 @@ class Script
     {
         $this->checkProperties();
 
+        if ($arguments === null) {
+            global $argv;
+            $arguments = $argv;
+        }
+
         $continue = $this->processParameters($arguments);
         if (!$continue) {
             return;
         }
 
-        $parameterValues = $this->initParameters($arguments);
-        return $this->run($arguments, $parameterValues);
+        return $this->run($arguments);
     }
 }
