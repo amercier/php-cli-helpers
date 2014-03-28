@@ -48,7 +48,7 @@ namespace Cli\Helpers;
  *
  * $ hello-world.php --version
  * Hello v1.0
- * Copyright (c) Purple DBU 2014
+ * Copyright (c) Alexandre Mercier 2014
  *
  * $ hello-world.php --help
  * Usage: hello-world.php [OPTIONS]
