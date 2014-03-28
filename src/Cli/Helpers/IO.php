@@ -68,7 +68,8 @@ class IO
         $modes = array(),
         $lineSeparator = "\n",
         $columnSeparator = ' ',
-        $fillCharacter = ' '
+        $fillCharacter = ' ',
+        $trim = true
     ) {
         // Find the max length of each column
         $wordLengths = array();
@@ -97,7 +98,7 @@ class IO
                 $line .= $j === 0 ? '' : $columnSeparator;
                 $line .= str_pad($word, $wordLengths[$j], $fillCharacter, $mode);
             }
-            $output .= trim($line);
+            $output .= $trim ? trim($line) : $line;
         }
 
         return $output;
