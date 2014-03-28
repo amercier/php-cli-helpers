@@ -116,7 +116,7 @@ class Script
 
         foreach ($this->parameterCallbacks as $id => $callback) {
             if ($options[$id] === true) {
-                if ($callback($options, $arguments) === false) {
+                if ($callback($options, $arguments, $this) === false) {
                     return false;
                 }
             }
