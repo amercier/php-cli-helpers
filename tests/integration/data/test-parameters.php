@@ -11,7 +11,7 @@
 
 require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
 
-use Cli\Helpers\Parameter as Parameter;
+use Cli\Helpers\Parameter;
 
 $options = Parameter::getFromCommandLine(array(
         'host'     => new Parameter('h', 'host'    , '127.0.0.1'),

@@ -11,7 +11,7 @@
 
 require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
 
-use Cli\Helpers\IO as IO;
+use Cli\Helpers\IO;
 
 $name = $argv[1];
 $values = array_slice($argv, 2);
