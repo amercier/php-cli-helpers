@@ -105,6 +105,7 @@ class Script
         // Get parameter values without throwing exceptions in case of missing
         // required parameter
         $options = array();
+        $this->parameters = array_reverse($this->parameters, true);
         foreach ($this->parameters as $id => $parameter) {
             try {
                 $value = Parameter::getFromCommandLine(array($id => $parameter), $arguments);

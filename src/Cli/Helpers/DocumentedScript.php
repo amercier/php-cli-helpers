@@ -31,8 +31,8 @@ class DocumentedScript extends Script
             function ($options, $arguments, $that) {
                 echo 'Usage: ' . $arguments[0];
 
-                $options = array();
-                foreach (array_reverse($that->parameters, true) as $id => $parameter) {
+                $lines = array();
+                foreach ($that->parameters as $id => $parameter) {
 
                     // Show in syntax line if required
                     if ($parameter->getDefaultValue() === Parameter::VALUE_REQUIRED) {
@@ -41,7 +41,7 @@ class DocumentedScript extends Script
                     }
 
                     // Add to options
-                    $options[] = array(
+                    $lines[] = array(
                         '  ' . $parameter->getShortSwitch() . ', ' . $parameter->getLongSwitch(),
                         (
                             $parameter->getDefaultValue() !== Parameter::VALUE_NO_VALUE
@@ -67,7 +67,7 @@ class DocumentedScript extends Script
                     . "\n"
                     . $that->description . "\n"
                     . "\n"
-                    . IO::strPadAll($options, array(), "\n", ' ', ' ', false) . "\n"
+                    . IO::strPadAll($lines, array(), "\n", ' ', ' ', false) . "\n"
                     . "\n"
                     . $that->name . ' v' . $that->version . "\n"
                     . ($that->copyright ? 'Copyright (c) ' . $that->copyright . "\n" : '');
