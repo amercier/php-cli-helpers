@@ -38,7 +38,7 @@ class DocumentedScriptUnitTestCase extends PHPUnit_Framework_TestCase
             . "  -V, --version              Output version information and exit.\n"
             . "\n"
             . "Hello v1.0\n"
-            . "Copyright (c) Copyright (c) Alexandre Mercier 2014\n"
+            . "Copyright (c) Alexandre Mercier 2014\n"
         );
     }
 

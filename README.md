@@ -69,7 +69,7 @@ $script
     ->setName('test-documented-script.php')
     ->setVersion('1.0')
     ->setDescription('Test script for Cli\Helpers\DocumentedScript')
-    ->setCopyright('2014 Alexandre Mercier')
+    ->setCopyright('Copyright (c) Alexandre Mercier 2014')
     ->addParameter(new Parameter('H', 'host'    , '127.0.0.1')              , 'Host.')
     ->addParameter(new Parameter('u', 'username', Parameter::VALUE_REQUIRED), 'User name.')
     ->addParameter(new Parameter('p', 'password', Parameter::VALUE_REQUIRED), 'Password.')

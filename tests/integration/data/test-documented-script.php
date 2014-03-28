@@ -10,7 +10,7 @@ $script
     ->setName('test-documented-script.php')
     ->setVersion('1.0')
     ->setDescription('Test script for Cli\Helpers\DocumentedScript')
-    ->setCopyright('2014 Alexandre Mercier')
+    ->setCopyright('Copyright (c) 2014 Alexandre Mercier')
     ->addParameter(new Parameter('v', 'verbose' , Parameter::VALUE_NO_VALUE), 'Enable verbosity.')
     ->addParameter(new Parameter('p', 'password', Parameter::VALUE_REQUIRED), 'Password.')
     ->addParameter(new Parameter('u', 'username', Parameter::VALUE_REQUIRED), 'User name.')
