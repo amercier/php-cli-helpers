@@ -9,7 +9,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->helloWorld = Cli\Helpers\Script::create()
+        $this->helloWorld = Script::create()
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             ->setVersion('1.0')
@@ -35,7 +35,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testNameRequired()
     {
-        Cli\Helpers\Script::create()
+        Script::create()
             ->setExceptionCatchingEnabled(false)
             // ->setName('Hello')
             ->setVersion('1.0')
@@ -50,7 +50,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testVersionRequired()
     {
-        Cli\Helpers\Script::create()
+        Script::create()
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             // ->setVersion('1.0')
@@ -65,7 +65,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testDescriptionRequired()
     {
-        Cli\Helpers\Script::create()
+        Script::create()
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             ->setVersion('1.0')
@@ -77,7 +77,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
 
     public function testCopyrightNotRequired()
     {
-        Cli\Helpers\Script::create()
+        Script::create()
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             ->setVersion('1.0')
@@ -95,7 +95,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testProgramRequired()
     {
-        Cli\Helpers\Script::create()
+        Script::create()
             ->setExceptionCatchingEnabled(false)
             ->setName('Hello')
             ->setVersion('1.0')
@@ -113,7 +113,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testDuplicateShortSwitch()
     {
-        Cli\Helpers\Script::create()
+        Script::create()
             ->setExceptionCatchingEnabled(false)
             // ->setName('Hello')
             ->setVersion('1.0')
@@ -130,7 +130,7 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
      */
     public function testDuplicateLongSwitch()
     {
-        Cli\Helpers\Script::create()
+        Script::create()
             ->setExceptionCatchingEnabled(false)
             // ->setName('Hello')
             ->setVersion('1.0')
@@ -177,51 +177,5 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
     {
         $result = $this->helloWorld->start(array('script.php', '--name', 'Franky', '--verbose'));
         $this->expectOutputString("Hello, Franky! Nice to see you again :)\n");
-    }
-
-    public function testVersionWithShortSwitch() {
-        $result = $this->helloWorld->start(array('script.php', '-v'));
-        $this->expectOutputString(
-            "Usage: script.php [OPTIONS]\n"
-            . "\n"
-            . "Say hello to the world or to a particular person\n"
-            . "\n"
-            . "  -h, --help       Display this help and exit.\n"
-            . "  -v, --version    Output version information and exit.\n"
-            . "\n"
-            . "Hello v1.0\n"
-            . "Copyright (c) Copyright (c) Orange ECV 2013\n"
-        );
-    }
-
-    public function testVersionWithLongSwitch() {
-        $result = $this->helloWorld->start(array('script.php', '--verbose'));
-        $this->expectOutputString(
-            "Usage: script.php [OPTIONS]\n"
-            . "\n"
-            . "Say hello to the world or to a particular person\n"
-            . "\n"
-            . "  -h, --help       Display this help and exit.\n"
-            . "  -v, --version    Output version information and exit.\n"
-            . "\n"
-            . "Hello v1.0\n"
-            . "Copyright (c) Copyright (c) Orange ECV 2013\n"
-        );
-    }
-
-    public function testHelpWithShortSwitch() {
-        $result = $this->helloWorld->start(array('script.php', '-h'));
-        $this->expectOutputString(
-            "Hello v1.0\n"
-            . "Copyright (c) Copyright (c) Orange ECV 2013\n"
-        );
-    }
-
-    public function testHelpWithLongSwitch() {
-        $result = $this->helloWorld->start(array('script.php', '--help'));
-        $this->expectOutputString(
-            "Hello v1.0\n"
-            . "Copyright (c) Copyright (c) Orange ECV 2013\n"
-        );
     }
 }
