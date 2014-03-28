@@ -99,15 +99,15 @@ class Script
         }
     }
 
-    protected function initParameters($arguments = null)
+    protected function initParameters($arguments)
     {
         return Parameter::getFromCommandLine($this->parameters, $arguments);
     }
 
-    protected function processParameters($arguments)
+    protected function processParameters($arguments, $parameterValues)
     {
         foreach ($this->parameterCallbacks as $id => $callback) {
-            if ($this->parameters[$id]) {
+            if ($parameterValues[$id] === true) {
                 if ($callback($arguments) === false) {
                     return false;
                 }
@@ -123,18 +123,19 @@ class Script
      * message is displayed on STDERR, and the script exits with return code 0.
      * To prevent catching the exception, use #setExceptionCatchingEnabled(false).
      *
-     * @param  array  $parameters  The script parameters
-     * @return mixed            Returns whatever the program returns
+     * @param  array  $arguments        The original arguments given to the script
+     * @param  array  $parameterValues  The parameters values parsed from the given arguments
+     * @return mixed                    Returns whatever the program returns
      */
-    protected function run($parameters)
+    protected function run($arguments, $parameterValues)
     {
         $program = $this->program;
         if (!$this->exceptionCatchingEnabled) {
-            return $program($parameters);
+            return $program($parameterValues);
         }
 
         try {
-            return $program($parameters);
+            return $program($parameterValues);
         } catch (\Exception $e) {
             fwrite(STDERR, $e->getMessage() . "\n");
             exit(1);
@@ -195,7 +196,7 @@ class Script
         $this->parameterDescriptions[$id] = $description;
         if ($callback) {
             if ($parameter->getDefaultValue() !== Parameter::VALUE_NO_VALUE) {
-                throw new Exception\InvalidScriptParameter();
+                throw new Exception\InvalidScriptParameter($parameter);
             }
             $this->parameterCallbacks[$id] = $callback;
         }
@@ -214,11 +215,11 @@ class Script
     public function start($arguments = null)
     {
         $this->checkProperties();
-        $parameters = $this->initParameters($arguments);
-        $continue = $this->processParameters($arguments);
+        $parameterValues = $this->initParameters($arguments);
+        $continue = $this->processParameters($arguments, $parameterValues);
         if (!$continue) {
             return;
         }
-        return $this->run($parameters);
+        return $this->run($arguments, $parameterValues);
     }
 }

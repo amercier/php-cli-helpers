@@ -178,4 +178,80 @@ class ScriptUnitTestCase extends PHPUnit_Framework_TestCase
         $result = $this->helloWorld->start(array('script.php', '--name', 'Franky', '--verbose'));
         $this->expectOutputString("Hello, Franky! Nice to see you again :)\n");
     }
+
+    public function testNonBlockingParameterCallbackIsExecuted()
+    {
+        $helloWorld = clone $this->helloWorld;
+        $helloWorld->addParameter(
+            new Parameter('p', 'pre-action', Parameter::VALUE_NO_VALUE),
+            'Pre-action',
+            function() {
+                echo "Executing pre-action\n";
+                return true;
+            }
+        );
+        $helloWorld->start(array('script.php', '--pre-action'));
+        $this->expectOutputString(
+            "Executing pre-action\n"
+            . "Hello, World!\n"
+        );
+    }
+
+    public function testNonBlockingParameterCallbackIsNotExecutedWhenSwitchIsNotActivated()
+    {
+        $helloWorld = clone $this->helloWorld;
+        $helloWorld->addParameter(
+            new Parameter('p', 'pre-action', Parameter::VALUE_NO_VALUE),
+            'Pre-action',
+            function() {
+                echo "Executing pre-action\n";
+                return true;
+            }
+        );
+        $helloWorld->start(array('script.php'));
+        $this->expectOutputString("Hello, World!\n");
+    }
+
+    public function testBlockingParameterCallbackIsExecuted()
+    {
+        $helloWorld = clone $this->helloWorld;
+        $helloWorld->addParameter(
+            new Parameter('a', 'alternate-action', Parameter::VALUE_NO_VALUE),
+            'Alternate action',
+            function() {
+                echo "Executing alternate action\n";
+                return false;
+            }
+        );
+        $helloWorld->start(array('script.php', '--alternate-action'));
+        $this->expectOutputString("Executing alternate action\n");
+    }
+
+    public function testBlockingParameterCallbackIsNotExecutedWhenSwitchIsNotActivated()
+    {
+        $helloWorld = clone $this->helloWorld;
+        $helloWorld->addParameter(
+            new Parameter('a', 'alternate-action', Parameter::VALUE_NO_VALUE),
+            'Alternate action',
+            function() {
+                echo "Executing alternate action\n";
+                return false;
+            }
+        );
+        $helloWorld->start(array('script.php'));
+        $this->expectOutputString("Hello, World!\n");
+    }
+
+    /**
+     * @expectedException Cli\Helpers\Exception\InvalidScriptParameter
+     */
+    public function testInvalidParameterCallback()
+    {
+        $helloWorld = clone $this->helloWorld;
+        $helloWorld->addParameter(
+            new Parameter('v', 'value', 'defaultValue'),
+            'Some value',
+            function() {}
+        );
+    }
 }
