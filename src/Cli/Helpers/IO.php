@@ -98,7 +98,7 @@ class IO
                 $line .= $j === 0 ? '' : $columnSeparator;
                 $line .= str_pad($word, $wordLengths[$j], $fillCharacter, $mode);
             }
-            $output .= $trim ? trim($line) : $line;
+            $output .= $trim ? trim($line) : preg_replace('/\\s*$/', '', $line);
         }
 
         return $output;
