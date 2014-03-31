@@ -146,7 +146,7 @@ class Script
         }
 
         try {
-            return $program($this->initParameters($arguments), $arguments);
+            return $program($this->initParameters($arguments), $arguments, $this);
         } catch (\Exception $e) {
             fwrite(STDERR, $e->getMessage() . "\n");
             exit(1);
