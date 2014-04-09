@@ -100,7 +100,16 @@ class Script
 
     protected function initParameters($arguments)
     {
-        return Parameter::getFromCommandLine($this->parameters, $arguments);
+        if (!$this->exceptionCatchingEnabled) {
+            return Parameter::getFromCommandLine($this->parameters, $arguments);
+        }
+
+        try {
+            return Parameter::getFromCommandLine($this->parameters, $arguments);
+        } catch (\Exception $e) {
+            fwrite(STDERR, $e->getMessage() . "\n");
+            exit(1);
+        }
     }
 
     protected function processParameters($arguments)
