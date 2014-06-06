@@ -3,11 +3,11 @@ php-cli-helpers
 
 Utility classes to write PHP command-line scripts
 
-[![Build Status](https://travis-ci.org/amercier/php-cli-helpers.png?branch=master)](https://travis-ci.org/amercier/php-cli-helpers)
-[![Coverage Status](https://coveralls.io/repos/amercier/php-cli-helpers/badge.png?branch=master)](https://coveralls.io/r/amercier/php-cli-helpers?branch=master)
-[![Dependency Status](https://www.versioneye.com/user/projects/51ed3f51632bac3b8900366c/badge.png)](https://www.versioneye.com/user/projects/51ed3f51632bac3b8900366c)
+[![Build Status](https://travis-ci.org/amercier/php-cli-helpers.png?branch=master&style=flat)](https://travis-ci.org/amercier/php-cli-helpers)
+[![Coverage Status](https://coveralls.io/repos/amercier/php-cli-helpers/badge.png?branch=master&style=flat)](https://coveralls.io/r/amercier/php-cli-helpers?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/51ed3f51632bac3b8900366c/badge.png?style=flat)](https://www.versioneye.com/user/projects/51ed3f51632bac3b8900366c)
 
-[![Latest Stable Version](https://poser.pugx.org/amercier/cli-helpers/v/stable.png)](https://packagist.org/packages/amercier/cli-helpers)
+[![Latest Stable Version](https://poser.pugx.org/amercier/cli-helpers/v/stable.png?style=flat)](https://packagist.org/packages/amercier/cli-helpers)
 
 
 Installation
