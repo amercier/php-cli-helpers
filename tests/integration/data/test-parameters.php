@@ -9,6 +9,7 @@
  *     -v, --verbose                      Verbose switch (optional)
  */
 
+ini_set('display_errors', 'stderr');
 require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
 
 use Cli\Helpers\Parameter;

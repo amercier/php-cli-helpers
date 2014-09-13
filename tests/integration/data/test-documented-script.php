@@ -1,5 +1,7 @@
 #!/usr/bin/env php
 <?php
+
+ini_set('display_errors', 'stderr');
 require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
 
 use Cli\Helpers\DocumentedScript;
