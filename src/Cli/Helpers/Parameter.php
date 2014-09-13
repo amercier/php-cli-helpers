@@ -120,7 +120,7 @@ class Parameter
         return $this->defaultValue;
     }
 
-    public function getValue ($arguments)
+    public function getValue($arguments)
     {
         // Parse arguments
         $index = -1;
@@ -159,7 +159,7 @@ class Parameter
         }
     }
 
-    public static function getFromCommandLine (array $parameters, $arguments = null)
+    public static function getFromCommandLine(array $parameters, $arguments = null)
     {
         global $argv;
         $options = array();
