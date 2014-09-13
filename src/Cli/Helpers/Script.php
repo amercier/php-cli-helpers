@@ -115,7 +115,7 @@ class Script
     protected function processParameters($arguments)
     {
         // Get parameter values without throwing exceptions in case of missing
-        // required parameter
+        // required parameter (ex: my-sctipt -h misses -u)
         $options = array();
         $this->parameters = array_reverse($this->parameters, true);
         foreach ($this->parameters as $id => $parameter) {
@@ -150,16 +150,7 @@ class Script
     protected function run($arguments)
     {
         $program = $this->program;
-        if (!$this->exceptionCatchingEnabled) {
-            return $program($this->initParameters($arguments), $arguments, $this);
-        }
-
-        try {
-            return $program($this->initParameters($arguments), $arguments, $this);
-        } catch (\Exception $e) {
-            fwrite(STDERR, $e->getMessage() . "\n");
-            exit(1);
-        }
+        return $program($this->initParameters($arguments), $arguments, $this);
     }
 
     public function setName($name)
@@ -234,16 +225,27 @@ class Script
      */
     public function start($arguments = null)
     {
+
         $this->checkProperties();
 
         global $argv;
         $arguments = $arguments === null ? $argv : $arguments;
 
-        $continue = $this->processParameters($arguments);
-        if (!$continue) {
-            return;
-        }
+        try {
+            $continue = $this->processParameters($arguments);
+            if (!$continue) {
+                return;
+            }
 
-        return $this->run($arguments);
+            return $this->run($arguments);
+
+        } catch (Exception $e) {
+            if ($this->exceptionCatchingEnabled) {
+                fwrite(STDERR, $e->getMessage() . "\n");
+                exit(1);
+            } else {
+                throw $e;
+            }
+        }
     }
 }
