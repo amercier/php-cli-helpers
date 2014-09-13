@@ -5,6 +5,10 @@ php:
   - 5.4
   - 5.5
 
+os:
+  - linux
+  - osx
+
 before_script:
   - curl -sS https://getcomposer.org/installer | php
   - php composer.phar install --dev --prefer-source --no-interaction
