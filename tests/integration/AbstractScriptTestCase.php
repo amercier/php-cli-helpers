@@ -10,6 +10,7 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
                2 => array("pipe", "w"),  // stderr
             );
 
+        $pipes = array();
         $process = proc_open($command, $descriptorspec, $pipes, $cwd === null ? dirname(__FILE__) : $cwd, $env);
         if ( !is_resource($process) ) {
             throw new Exception('Failed to execute command "' . $command . '"');
@@ -59,7 +60,7 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
         $this->assertEquals($returnValue, $expectedReturnValue);
     }
 
-    protected function assertScriptOutputRegex($command, $expectedStdoutPattern, $expectedStderrPattern = '//', $expectedReturnValuePattern = '/0/', $stdinData = '', $cwd = null, $env = null)
+    protected function assertScriptOutputRegex($command, $expectedStdoutPattern, $expectedStderrPattern = '//s', $expectedReturnValuePattern = '/0/', $stdinData = '', $cwd = null, $env = null)
     {
         $output = $this->runCommand($command, $stdinData, $cwd, $env);
         $stdout = $output[0];
@@ -75,9 +76,9 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
     {
         return $this->assertScriptOutputRegex(
                 $command,
-                '/' . preg_quote($expectedStdout, '/') . '.*/',
-                '/' . preg_quote($expectedStderr, '/') . '.*/',
-                '/' . preg_quote($expectedReturnValue, '/') . '.*/',
+                '/' . preg_quote($expectedStdout, '/') . '.*/s',
+                '/' . preg_quote($expectedStderr, '/') . '.*/s',
+                '/' . preg_quote($expectedReturnValue, '/') . '.*/s',
                 $stdinData,
                 $cwd,
                 $env
@@ -88,9 +89,9 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
     {
         return $this->assertScriptOutputRegex(
                 $command,
-                '/.*' . preg_quote($expectedStdout, '/') . '/',
-                '/.*' . preg_quote($expectedStderr, '/') . '/',
-                '/.*' . preg_quote($expectedReturnValue, '/') . '/',
+                '/.*' . preg_quote($expectedStdout, '/') . '/s',
+                '/.*' . preg_quote($expectedStderr, '/') . '/s',
+                '/.*' . preg_quote($expectedReturnValue, '/') . '/s',
                 $stdinData,
                 $cwd,
                 $env
@@ -101,9 +102,9 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
     {
         return $this->assertScriptOutputRegex(
                 $command,
-                '/.*' . preg_quote($expectedStdout, '/') . '.*/',
-                '/.*' . preg_quote($expectedStderr, '/') . '.*/',
-                '/.*' . preg_quote($expectedReturnValue, '/') . '.*/',
+                '/.*' . preg_quote($expectedStdout, '/') . '.*/s',
+                '/.*' . preg_quote($expectedStderr, '/') . '.*/s',
+                '/.*' . preg_quote($expectedReturnValue, '/') . '.*/s',
                 $stdinData,
                 $cwd,
                 $env
