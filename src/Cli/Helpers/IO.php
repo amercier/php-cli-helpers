@@ -43,7 +43,7 @@ class IO
             return $val;
         }
 
-        $inputHandler === null && fclose($inputHandler);
+        $inputHandler === null || fclose($inputHandler);
         return false;
     }
 
