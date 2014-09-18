@@ -37,13 +37,12 @@ class IO
     public static function readInteger($min, $max, $inputHandler = null)
     {
         $handler = $inputHandler !== null ? $inputHandler : fopen(self::STDIN, 'r');
-
         $response = trim(fgets($handler));
+        $inputHandler === null && fclose($handler); // close only if opened here
+
         if (is_numeric($response) && ($val = intval($response)) >= $min && $val <= $max) {
             return $val;
         }
-
-        $inputHandler === null || fclose($inputHandler);
         return false;
     }
 
