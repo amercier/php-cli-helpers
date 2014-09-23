@@ -144,7 +144,7 @@ You can also add parameters to the function:
     'Doing awesome stuff',
     function($a, $b) {
         $a; // => 1337;
-        $a; // => 'good luck, im behind 7 firewalls';
+        $b; // => 'good luck, im behind 7 firewalls';
     },
     array(1337, 'im behind 7 firewalls')
 });
