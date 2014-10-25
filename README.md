@@ -17,7 +17,7 @@ Installation
 _php-cli-helpers_ is available through [Composer](http://getcomposer.org/).
 ```json
   "require": {
-    "amercier/php-cli-helpers": "1.*"
+    "amercier/cli-helpers": "1.*"
   }
 ```
 ```bash
