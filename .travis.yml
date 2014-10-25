@@ -10,6 +10,11 @@ os:
   - linux
   - osx
 
+addons:
+  code_climate:
+    repo_token:
+      secure: "WIyvPYejilSlf+GTGMnOtKeFz01t667INGuaPguWkVm0nkBIYaedXrdnF2o6Hz/Xbji14Hozylh7oBIumC+37bw5/DQtoPHS8/EJ5zKOrOSGsYOciQRRNIhQkAKmNANqmBkM4Tr2EiWZeRcQKtJFtlBSXJ55RFUML+PON0RljbQ="
+
 before_script:
   - curl -sS https://getcomposer.org/installer | php
   - php composer.phar install --dev --prefer-source --no-interaction
@@ -22,3 +27,4 @@ script:
 
 after_script:
   - vendor/bin/coveralls -v
+  - vendor/bin/test-reporter
