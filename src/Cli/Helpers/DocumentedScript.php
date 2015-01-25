@@ -33,7 +33,6 @@ class DocumentedScript extends Script
 
                 $lines = array();
                 foreach ($that->parameters as $id => $parameter) {
-
                     // Show in syntax line if required
                     if ($parameter->getDefaultValue() === Parameter::VALUE_REQUIRED) {
                         echo ' ' . $parameter->getShortSwitch()

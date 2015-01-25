@@ -126,7 +126,6 @@ class Parameter
         $index = -1;
         foreach ($arguments as $i => $value) {
             if ($i !== 0 && ($value === $this->getShortSwitch() || $value === $this->getLongSwitch())) {
-
                 // Prevent short and long options simultaneously
                 if ($index !== -1) {
                     throw new Exception\ConflictingParameters($this, $arguments);
@@ -149,12 +148,13 @@ class Parameter
         }
 
         // No value
-        if ($this->defaultValue === self::VALUE_REQUIRED) { // required
+        if ($this->defaultValue === self::VALUE_REQUIRED) {
+            // required
             throw $index === -1
                 ? new Exception\MissingRequiredParameter($this, $arguments)
                 : new Exception\MissingParameterValue($this, $arguments);
-        } else { // default value exists
-
+        } else {
+            // default value exists
             return $this->defaultValue;
         }
     }
