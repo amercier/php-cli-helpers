@@ -3,12 +3,12 @@ php-cli-helpers
 
 Utility classes to write PHP command-line scripts
 
-[![Build Status](https://travis-ci.org/amercier/php-cli-helpers.png?branch=master)](https://travis-ci.org/amercier/php-cli-helpers)
-[![Code Climate](https://codeclimate.com/github/amercier/php-cli-helpers.svg)](https://codeclimate.com/github/amercier/php-cli-helpers)
-[![Test Coverage](https://codeclimate.com/github/amercier/php-cli-helpers/badges/coverage.svg)](https://codeclimate.com/github/amercier/php-cli-helpers)
-[![Dependency Status](https://gemnasium.com/amercier/php-cli-helpers.svg)](https://gemnasium.com/amercier/php-cli-helpers)
+[![Build Status](https://img.shields.io/travis/amercier/php-cli-helpers/master.svg?style=flat-square)](https://travis-ci.org/amercier/php-cli-helpers)
+[![Code Climate](https://img.shields.io/codeclimate/github/amercier/php-cli-helpers.svg?style=flat-square)](https://codeclimate.com/github/amercier/php-cli-helpers)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/amercier/php-cli-helpers.svg?style=flat-square)](https://codeclimate.com/github/amercier/php-cli-helpers)
+[![Dependency Status](https://img.shields.io/gemnasium/amercier/php-cli-helpers.svg?style=flat-square)](https://gemnasium.com/amercier/php-cli-helpers)
 
-[![Latest Stable Version](https://poser.pugx.org/amercier/cli-helpers/v/stable.svg)](https://packagist.org/packages/amercier/cli-helpers)
+[![Latest Stable Version](https://img.shields.io/packagist/v/amercier/cli-helpers.svg?style=flat-square)](https://packagist.org/packages/amercier/cli-helpers)
 
 
 Installation
