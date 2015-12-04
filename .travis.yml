@@ -1,14 +1,15 @@
 language: php
 
 php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
+- 5.3
+- 5.4
+- 5.5
+- 5.6
+- 7.0
 
 os:
-  - linux
-  - osx
+- linux
+- osx
 
 addons:
   code_climate:
@@ -16,15 +17,15 @@ addons:
       secure: "WIyvPYejilSlf+GTGMnOtKeFz01t667INGuaPguWkVm0nkBIYaedXrdnF2o6Hz/Xbji14Hozylh7oBIumC+37bw5/DQtoPHS8/EJ5zKOrOSGsYOciQRRNIhQkAKmNANqmBkM4Tr2EiWZeRcQKtJFtlBSXJ55RFUML+PON0RljbQ="
 
 before_script:
-  - curl -sS https://getcomposer.org/installer | php
-  - php composer.phar install --dev --prefer-source --no-interaction
+- curl -sS https://getcomposer.org/installer | php
+- php composer.phar install --dev --prefer-source --no-interaction
 
 script:
-  - mkdir -p build/logs
-  - vendor/bin/phpcs --standard=PSR1 src/
-  - vendor/bin/phpcs --standard=PSR2 src/
-  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+- mkdir -p build/logs
+- vendor/bin/phpcs --standard=PSR1 src/
+- vendor/bin/phpcs --standard=PSR2 src/
+- vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
-  - vendor/bin/test-reporter --stdout > codeclimate.json
-  - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
+- vendor/bin/test-reporter --stdout > codeclimate.json
+- "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
