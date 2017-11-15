@@ -21,18 +21,22 @@
   "include-path": [
     "src/"
   ],
-  "repositories": [
-    {
-      "type": "pear",
-      "url": "http://pear.php.net"
-    }
-  ],
   "require": {
-    "php": ">=5.3.2"
+    "php": ">=5.3"
   },
   "require-dev": {
-    "codeclimate/php-test-reporter": "dev-master",
-    "phpunit/phpunit": "4.*",
-    "pear-pear.php.net/PHP_CodeSniffer": ">=1.4.5"
+    "squizlabs/php_codesniffer": "^3.1",
+    "codeclimate/php-test-reporter": "^0.4.4",
+    "phpunit/phpunit": "^6.4"
+  },
+  "scripts": {
+    "lint": [
+      "phpcs --extensions=php --standard=PSR1 src/",
+      "phpcs --extensions=php --standard=PSR2 src/"
+    ],
+    "test": [
+      "mkdir -p build/logs",
+      "phpunit --coverage-clover build/logs/clover.xml"
+    ]
   }
 }

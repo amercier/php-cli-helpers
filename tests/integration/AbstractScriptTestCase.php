@@ -1,6 +1,8 @@
 <?php
 
-abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class AbstractCliScriptTestCase extends TestCase
 {
     protected function runCommand($command, $stdinData = '', $cwd = null, $env = null)
     {

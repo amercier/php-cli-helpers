@@ -73,6 +73,5 @@ class DocumentedScript extends Script
                 return false;
             }
         );
-
     }
 }

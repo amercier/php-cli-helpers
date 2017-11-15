@@ -1,8 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 use Cli\Helpers\Parameter;
 
-class ParameterUnitTestCase extends PHPUnit_Framework_TestCase
+class ParameterUnitTestCase extends TestCase
 {
     const SCRIPT = 'data/test-parameters.php';
 

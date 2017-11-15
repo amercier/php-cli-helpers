@@ -1,8 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 use Cli\Helpers\IO;
 
-class IOUnitTestCase extends PHPUnit_Framework_TestCase
+class IOUnitTestCase extends TestCase
 {
     protected $name = 'an apple';
     protected $values = array(

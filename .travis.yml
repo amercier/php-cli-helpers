@@ -20,9 +20,8 @@ before_script:
 
 script:
 - mkdir -p build/logs
-- vendor/bin/phpcs --standard=PSR1 src/
-- vendor/bin/phpcs --standard=PSR2 src/
-- vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+- composer lint
+- composer test
 
 after_script:
 - vendor/bin/test-reporter --stdout > codeclimate.json

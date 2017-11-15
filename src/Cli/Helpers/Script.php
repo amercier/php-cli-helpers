@@ -238,7 +238,6 @@ class Script
             }
 
             return $this->run($arguments);
-
         } catch (Exception $e) {
             if ($this->exceptionCatchingEnabled) {
                 fwrite(STDERR, $e->getMessage() . "\n");
