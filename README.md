@@ -8,7 +8,9 @@ Utility classes to write PHP command-line scripts
 [![Test Coverage](https://img.shields.io/codeclimate/coverage/github/amercier/php-cli-helpers.svg?style=flat)](https://codeclimate.com/github/amercier/php-cli-helpers)
 [![Dependency Status](https://img.shields.io/gemnasium/amercier/php-cli-helpers.svg?style=flat)](https://gemnasium.com/amercier/php-cli-helpers)
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/amercier/cli-helpers.svg?style=flat)](https://packagist.org/packages/amercier/cli-helpers)
+[![Latest Stable Version](https://img.shields.io/packagist/v/amercier/cli-helpers.svg)](https://packagist.org/packages/amercier/cli-helpers)
+[![PHP version](https://img.shields.io/packagist/php-v/amercier/cli-helpers.svg)](https://packagist.org/packages/amercier/cli-helpers)
+[![License](https://img.shields.io/packagist/l/amercier/cli-helpers.svg)](https://packagist.org/packages/amercier/cli-helpers)
 
 
 Installation
