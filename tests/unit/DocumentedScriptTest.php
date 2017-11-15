@@ -1,9 +1,11 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 use Cli\Helpers\DocumentedScript;
 use Cli\Helpers\Parameter;
 
-class DocumentedScriptUnitTestCase extends PHPUnit_Framework_TestCase
+class DocumentedScriptUnitTestCase extends TestCase
 {
     protected $helloWorld;
 

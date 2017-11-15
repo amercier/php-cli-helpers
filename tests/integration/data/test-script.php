@@ -18,6 +18,6 @@ $script
     ->addParameter(new Parameter('u', 'username', Parameter::VALUE_REQUIRED), 'User name.')
     ->addParameter(new Parameter('H', 'host'    , '127.0.0.1')              , 'Host.')
     ->setProgram(function ($options) {
-        var_dump($options);
+        echo json_encode($options, JSON_PRETTY_PRINT) . "\n";
     })
     ->start();

@@ -20,4 +20,4 @@ $values = array_slice($argv, 2);
 $response = IO::form($name, $values);
 
 echo "\nResponse: ";
-var_dump($response);
+echo json_encode($response, JSON_PRETTY_PRINT) . "\n";

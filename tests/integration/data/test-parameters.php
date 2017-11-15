@@ -20,4 +20,4 @@ $options = Parameter::getFromCommandLine(array(
         'password' => new Parameter('p', 'password', Parameter::VALUE_REQUIRED),
         'verbose'  => new Parameter('v', 'verbose' , Parameter::VALUE_NO_VALUE),
     ));
-var_dump( $options );
+echo json_encode($options, JSON_PRETTY_PRINT) . "\n";

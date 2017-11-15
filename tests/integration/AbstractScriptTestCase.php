@@ -1,6 +1,8 @@
 <?php
 
-abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class AbstractCliScriptTestCase extends TestCase
 {
     protected function runCommand($command, $stdinData = '', $cwd = null, $env = null)
     {
@@ -42,7 +44,7 @@ abstract class AbstractCliScriptTestCase extends PHPUnit_Framework_TestCase
     {
         if ( !is_string($output) ) {
             ob_start();
-            var_dump($output);
+            echo json_encode($output, JSON_PRETTY_PRINT) . "\n";
             $output = ob_get_clean();
         }
         return $output;

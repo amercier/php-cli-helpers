@@ -1,8 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 use Cli\Helpers\Job;
 
-class JobUnitTestCase extends PHPUnit_Framework_TestCase
+class JobUnitTestCase extends TestCase
 {
     public function testSuccessfulJob()
     {
