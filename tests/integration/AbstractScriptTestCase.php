@@ -44,7 +44,7 @@ abstract class AbstractCliScriptTestCase extends TestCase
     {
         if ( !is_string($output) ) {
             ob_start();
-            var_dump($output);
+            echo json_encode($output, JSON_PRETTY_PRINT) . "\n";
             $output = ob_get_clean();
         }
         return $output;

@@ -39,7 +39,7 @@ class IOIntegrationTestCase extends AbstractCliScriptTestCase
                 array(
                     '',
                     'Choose ' . $this->name . ': ',
-                    'Response: int(0)',
+                    'Response: 0',
                     '',
                 )
             )),
