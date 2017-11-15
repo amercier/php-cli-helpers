@@ -83,7 +83,7 @@ $script
 ```
 
 While `Script` doesn't have any pre-configured switch, `DocumentedScript` has 
-`--h, --help` and `-V, --version`. This provides an automaic handling of this
+`--h, --help` and `-V, --version`. This provides an automatic handling of this
 two switches.
 
 Version example:
