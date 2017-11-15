@@ -3,12 +3,12 @@ php-cli-helpers
 
 Utility classes to write PHP command-line scripts
 
-[![Build Status](https://img.shields.io/travis/amercier/php-cli-helpers/master.svg?style=flat-square)](https://travis-ci.org/amercier/php-cli-helpers)
-[![Code Climate](https://img.shields.io/codeclimate/github/amercier/php-cli-helpers.svg?style=flat-square)](https://codeclimate.com/github/amercier/php-cli-helpers)
-[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/amercier/php-cli-helpers.svg?style=flat-square)](https://codeclimate.com/github/amercier/php-cli-helpers)
-[![Dependency Status](https://img.shields.io/gemnasium/amercier/php-cli-helpers.svg?style=flat-square)](https://gemnasium.com/amercier/php-cli-helpers)
+[![Build Status](https://img.shields.io/travis/amercier/php-cli-helpers/master.svg?style=flat)](https://travis-ci.org/amercier/php-cli-helpers)
+[![Code Climate](https://img.shields.io/codeclimate/github/amercier/php-cli-helpers.svg?style=flat)](https://codeclimate.com/github/amercier/php-cli-helpers)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/amercier/php-cli-helpers.svg?style=flat)](https://codeclimate.com/github/amercier/php-cli-helpers)
+[![Dependency Status](https://img.shields.io/gemnasium/amercier/php-cli-helpers.svg?style=flat)](https://gemnasium.com/amercier/php-cli-helpers)
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/amercier/cli-helpers.svg?style=flat-square)](https://packagist.org/packages/amercier/cli-helpers)
+[![Latest Stable Version](https://img.shields.io/packagist/v/amercier/cli-helpers.svg?style=flat)](https://packagist.org/packages/amercier/cli-helpers)
 
 
 Installation
@@ -82,7 +82,7 @@ $script
     ->start();
 ```
 
-While `Script` doesn't have any pre-configured switch, `DocumentedScript` has 
+While `Script` doesn't have any pre-configured switch, `DocumentedScript` has
 `--h, --help` and `-V, --version`. This provides an automatic handling of this
 two switches.
 
