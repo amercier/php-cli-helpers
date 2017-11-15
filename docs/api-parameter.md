@@ -73,7 +73,7 @@ Executing this with `my-script.php -u myname -p` will result in a
 `Cli\Helpers\Exception\MissingParameterValue` exception because
 the options '-p/--password' requires a value.
 
-Executing this with `my-script.php -u myname -p password --passsword
+Executing this with `my-script.php -u myname -p password --password
 password` will result in a
 `Cli\Helpers\Exception\ConflictingParameters` exception because
 the options '-p/--password' cannot be used with the short and long switches
