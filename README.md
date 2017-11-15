@@ -223,7 +223,7 @@ Contributing
 
 Contributions (issues ♥, pull requests ♥♥♥) are more than welcome! Feel free to
 clone, fork, modify, extend, etc, as long as you respect the
-[license terms](LICENSE).
+[license terms](LICENSE.md).
 
 See [contributing intructions](docs/contributing.md) for details.
 
@@ -231,7 +231,7 @@ See [contributing intructions](docs/contributing.md) for details.
 Licensing
 ---------
 
-This project is released under [MIT License](LICENSE) license. If this license
+This project is released under [ISC License](LICENSE.d) license. If this license
 does not fit your requirement for whatever reason, but you would be interested
 in using the work (as defined below) under another license, please contact
 [authors](docs/authors.md).

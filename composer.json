@@ -12,7 +12,7 @@
     "utilities"
   ],
   "homepage": "https://github.com/amercier/php-cli-helpers",
-  "license": "MIT",
+  "license": "ISC",
   "autoload": {
     "psr-0": {
       "Cli": "src/"
