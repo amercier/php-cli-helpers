@@ -49,7 +49,8 @@ class Job
     protected $message;
     protected $function;
     protected $debug;
-
+    protected $arguments;
+    
     public function __construct($message, $function, $arguments = array(), $debug = false)
     {
         $this->message = $message;
